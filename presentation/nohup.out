@@ -1,0 +1,141 @@
+[I 18:23:35.311 NotebookApp] [jupyter_nbextensions_configurator] enabled 0.2.8
+[I 18:23:35.340 NotebookApp] Serving notebooks from local directory: /Users/weiting/project/presentation
+[I 18:23:35.340 NotebookApp] 0 active kernels
+[I 18:23:35.341 NotebookApp] The Jupyter Notebook is running at:
+[I 18:23:35.341 NotebookApp] http://localhost:9137/
+[I 18:23:35.341 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[I 18:25:13.926 NotebookApp] 302 GET / (::1) 0.55ms
+[I 18:25:13.973 NotebookApp] 302 GET /tree? (::1) 1.40ms
+[I 18:25:17.267 NotebookApp] 302 POST /login?next=%2Ftree%3F (::1) 1.55ms
+[W 18:25:18.339 NotebookApp] 404 GET /static/components/moment/locale/en-gb.js?v=20171128182334 (::1) 58.51ms referer=http://localhost:9137/tree?
+[W 18:25:24.725 NotebookApp] Notebook presentation2.ipynb is not trusted
+[W 18:25:24.772 NotebookApp] 404 GET /static/components/moment/locale/en-gb.js?v=20171128182334 (::1) 2.11ms referer=http://localhost:9137/notebooks/presentation2.ipynb
+[I 18:25:26.505 NotebookApp] Kernel started: d0dc426c-8092-47c9-a283-76173bd25566
+[I 18:25:26.510 NotebookApp] 302 GET /notebooks/pipeline.svg (::1) 1.63ms
+[I 18:25:27.525 NotebookApp] Adapting to protocol v5.1 for kernel d0dc426c-8092-47c9-a283-76173bd25566
+[W 18:25:28.534 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20171128182334 (::1) 2.16ms referer=http://localhost:9137/notebooks/presentation2.ipynb
+[W 18:25:33.412 NotebookApp] 404 GET /notebooks/rise.css (::1): No such file or directory: rise.css
+[W 18:25:33.413 NotebookApp] 404 GET /notebooks/rise.css (::1) 2.08ms referer=http://localhost:9137/notebooks/presentation2.ipynb
+[W 18:25:33.415 NotebookApp] 404 GET /notebooks/presentation2.css (::1): No such file or directory: presentation2.css
+[W 18:25:33.416 NotebookApp] 404 GET /notebooks/presentation2.css (::1) 1.75ms referer=http://localhost:9137/notebooks/presentation2.ipynb
+[I 18:25:51.543 NotebookApp] 302 GET /notebooks/pipeline.svg (::1) 1.37ms
+[W 18:26:39.478 NotebookApp] 404 GET /notebooks/rise.css (::1): No such file or directory: rise.css
+[W 18:26:39.479 NotebookApp] 404 GET /notebooks/rise.css (::1) 2.00ms referer=http://localhost:9137/notebooks/presentation2.ipynb
+[W 18:26:39.487 NotebookApp] 404 GET /notebooks/presentation2.css (::1): No such file or directory: presentation2.css
+[W 18:26:39.488 NotebookApp] 404 GET /notebooks/presentation2.css (::1) 2.01ms referer=http://localhost:9137/notebooks/presentation2.ipynb
+[W 18:26:46.363 NotebookApp] 404 GET /notebooks/rise.css (::1): No such file or directory: rise.css
+[W 18:26:46.364 NotebookApp] 404 GET /notebooks/rise.css (::1) 2.13ms referer=http://localhost:9137/notebooks/presentation2.ipynb
+[W 18:26:46.366 NotebookApp] 404 GET /notebooks/presentation2.css (::1): No such file or directory: presentation2.css
+[W 18:26:46.366 NotebookApp] 404 GET /notebooks/presentation2.css (::1) 1.74ms referer=http://localhost:9137/notebooks/presentation2.ipynb
+[I 18:27:01.474 NotebookApp] Saving file at /presentation2.ipynb
+[W 18:27:01.475 NotebookApp] Notebook presentation2.ipynb is not trusted
+[W 18:27:08.067 NotebookApp] 404 GET /notebooks/rise.css (::1): No such file or directory: rise.css
+[W 18:27:08.068 NotebookApp] 404 GET /notebooks/rise.css (::1) 2.25ms referer=http://localhost:9137/notebooks/presentation2.ipynb
+[W 18:27:08.070 NotebookApp] 404 GET /notebooks/presentation2.css (::1): No such file or directory: presentation2.css
+[W 18:27:08.071 NotebookApp] 404 GET /notebooks/presentation2.css (::1) 1.70ms referer=http://localhost:9137/notebooks/presentation2.ipynb
+[I 18:27:27.553 NotebookApp] Saving file at /presentation2.ipynb
+[W 18:27:27.554 NotebookApp] Notebook presentation2.ipynb is not trusted
+[W 18:27:30.665 NotebookApp] 404 GET /notebooks/rise.css (::1): No such file or directory: rise.css
+[W 18:27:30.666 NotebookApp] 404 GET /notebooks/rise.css (::1) 2.09ms referer=http://localhost:9137/notebooks/presentation2.ipynb
+[W 18:27:30.668 NotebookApp] 404 GET /notebooks/presentation2.css (::1): No such file or directory: presentation2.css
+[W 18:27:30.669 NotebookApp] 404 GET /notebooks/presentation2.css (::1) 1.75ms referer=http://localhost:9137/notebooks/presentation2.ipynb
+[W 18:28:39.720 NotebookApp] 404 GET /notebooks/rise.css (::1): No such file or directory: rise.css
+[W 18:28:39.721 NotebookApp] 404 GET /notebooks/rise.css (::1) 3.10ms referer=http://localhost:9137/notebooks/presentation2.ipynb
+[W 18:28:39.724 NotebookApp] 404 GET /notebooks/presentation2.css (::1): No such file or directory: presentation2.css
+[W 18:28:39.725 NotebookApp] 404 GET /notebooks/presentation2.css (::1) 2.77ms referer=http://localhost:9137/notebooks/presentation2.ipynb
+[I 18:29:27.544 NotebookApp] Saving file at /presentation2.ipynb
+[W 18:29:27.545 NotebookApp] Notebook presentation2.ipynb is not trusted
+[I 18:31:28.501 NotebookApp] Saving file at /presentation2.ipynb
+[W 18:31:28.502 NotebookApp] Notebook presentation2.ipynb is not trusted
+[W 18:32:33.149 NotebookApp] 404 GET /notebooks/rise.css (::1): No such file or directory: rise.css
+[W 18:32:33.151 NotebookApp] 404 GET /notebooks/rise.css (::1) 2.15ms referer=http://localhost:9137/notebooks/presentation2.ipynb
+[W 18:32:33.152 NotebookApp] 404 GET /notebooks/presentation2.css (::1): No such file or directory: presentation2.css
+[W 18:32:33.153 NotebookApp] 404 GET /notebooks/presentation2.css (::1) 1.73ms referer=http://localhost:9137/notebooks/presentation2.ipynb
+[I 18:33:27.564 NotebookApp] Saving file at /presentation2.ipynb
+[W 18:33:27.565 NotebookApp] Notebook presentation2.ipynb is not trusted
+[W 18:34:53.537 NotebookApp] 404 GET /notebooks/rise.css (::1): No such file or directory: rise.css
+[W 18:34:53.539 NotebookApp] 404 GET /notebooks/rise.css (::1) 2.12ms referer=http://localhost:9137/notebooks/presentation2.ipynb
+[W 18:34:53.540 NotebookApp] 404 GET /notebooks/presentation2.css (::1): No such file or directory: presentation2.css
+[W 18:34:53.541 NotebookApp] 404 GET /notebooks/presentation2.css (::1) 1.72ms referer=http://localhost:9137/notebooks/presentation2.ipynb
+[I 18:35:27.533 NotebookApp] Saving file at /presentation2.ipynb
+[W 18:35:27.534 NotebookApp] Notebook presentation2.ipynb is not trusted
+[W 18:38:55.594 NotebookApp] 404 GET /notebooks/rise.css (::1): No such file or directory: rise.css
+[W 18:38:55.595 NotebookApp] 404 GET /notebooks/rise.css (::1) 2.08ms referer=http://localhost:9137/notebooks/presentation2.ipynb
+[W 18:38:55.596 NotebookApp] 404 GET /notebooks/presentation2.css (::1): No such file or directory: presentation2.css
+[W 18:38:55.597 NotebookApp] 404 GET /notebooks/presentation2.css (::1) 1.73ms referer=http://localhost:9137/notebooks/presentation2.ipynb
+[I 18:39:27.528 NotebookApp] Saving file at /presentation2.ipynb
+[W 18:39:27.529 NotebookApp] Notebook presentation2.ipynb is not trusted
+[I 18:39:46.528 NotebookApp] Saving file at /presentation2.ipynb
+[W 18:39:46.529 NotebookApp] Notebook presentation2.ipynb is not trusted
+[W 18:39:50.411 NotebookApp] 404 GET /notebooks/rise.css (::1): No such file or directory: rise.css
+[W 18:39:50.412 NotebookApp] 404 GET /notebooks/rise.css (::1) 1.83ms referer=http://localhost:9137/notebooks/presentation2.ipynb
+[W 18:39:50.414 NotebookApp] 404 GET /notebooks/presentation2.css (::1): No such file or directory: presentation2.css
+[W 18:39:50.415 NotebookApp] 404 GET /notebooks/presentation2.css (::1) 1.87ms referer=http://localhost:9137/notebooks/presentation2.ipynb
+[I 13:38:42.741 NotebookApp] 302 GET / (::1) 0.47ms
+[I 13:38:43.016 NotebookApp] 302 GET /tree? (::1) 0.98ms
+[W 13:38:45.971 NotebookApp] 401 POST /login?next=%2Ftree%3F (::1) 2.21ms referer=http://localhost:9137/login?next=%2Ftree%3F
+[I 13:38:49.466 NotebookApp] 302 POST /login?next=%2Ftree%3F (::1) 1.47ms
+[W 13:38:53.354 NotebookApp] Notebook presentation2.ipynb is not trusted
+[I 13:38:53.707 NotebookApp] 302 GET /notebooks/pipeline.svg (::1) 1.30ms
+[I 13:38:54.645 NotebookApp] Adapting to protocol v5.1 for kernel d0dc426c-8092-47c9-a283-76173bd25566
+[W 13:38:55.845 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20171128182334 (::1) 2.01ms referer=http://localhost:9137/notebooks/presentation2.ipynb
+[I 13:40:16.696 NotebookApp] Uploading file to /timeline.svg
+[W 13:40:19.461 NotebookApp] Notebook presentation2.ipynb is not trusted
+[I 13:40:19.835 NotebookApp] 302 GET /notebooks/pipeline.svg (::1) 1.30ms
+[I 13:40:20.740 NotebookApp] Adapting to protocol v5.1 for kernel d0dc426c-8092-47c9-a283-76173bd25566
+[W 13:40:21.554 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20171128182334 (::1) 1.87ms referer=http://localhost:9137/notebooks/presentation2.ipynb
+[I 13:41:04.950 NotebookApp] 302 GET /notebooks/timeline.svg (::1) 1.30ms
+[I 13:41:21.166 NotebookApp] Saving file at /presentation2.ipynb
+[W 13:41:21.167 NotebookApp] Notebook presentation2.ipynb is not trusted
+[W 13:44:09.771 NotebookApp] Notebook presentation2.ipynb is not trusted
+[I 13:44:10.360 NotebookApp] 302 GET /notebooks/pipeline.svg (::1) 1.30ms
+[I 13:44:11.129 NotebookApp] 302 GET /notebooks/timeline.svg (::1) 1.27ms
+[I 13:44:11.333 NotebookApp] Adapting to protocol v5.1 for kernel d0dc426c-8092-47c9-a283-76173bd25566
+[W 13:44:12.429 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20171128182334 (::1) 2.33ms referer=http://localhost:9137/notebooks/presentation2.ipynb
+[I 13:44:41.563 NotebookApp] Saving file at /presentation2.ipynb
+[W 13:44:41.564 NotebookApp] Notebook presentation2.ipynb is not trusted
+[W 13:44:44.326 NotebookApp] Notebook presentation2.ipynb is not trusted
+[I 13:44:44.831 NotebookApp] 302 GET /notebooks/pipeline.svg (::1) 1.34ms
+[I 13:44:45.575 NotebookApp] 302 GET /notebooks/timeline.svg (::1) 1.30ms
+[I 13:44:45.806 NotebookApp] Adapting to protocol v5.1 for kernel d0dc426c-8092-47c9-a283-76173bd25566
+[W 13:44:46.773 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20171128182334 (::1) 2.05ms referer=http://localhost:9137/notebooks/presentation2.ipynb
+[W 13:45:00.779 NotebookApp] 404 GET /notebooks/rise.css (::1): No such file or directory: rise.css
+[W 13:45:00.780 NotebookApp] 404 GET /notebooks/rise.css (::1) 1.96ms referer=http://localhost:9137/notebooks/presentation2.ipynb
+[W 13:45:00.781 NotebookApp] 404 GET /notebooks/presentation2.css (::1): No such file or directory: presentation2.css
+[W 13:45:00.782 NotebookApp] 404 GET /notebooks/presentation2.css (::1) 1.65ms referer=http://localhost:9137/notebooks/presentation2.ipynb
+[I 13:46:45.956 NotebookApp] Saving file at /presentation2.ipynb
+[W 13:46:45.958 NotebookApp] Notebook presentation2.ipynb is not trusted
+[I 14:03:56.366 NotebookApp] 302 GET / (::1) 0.41ms
+[I 14:03:56.481 NotebookApp] 302 GET /tree? (::1) 0.93ms
+[I 14:04:00.510 NotebookApp] 302 POST /login?next=%2Ftree%3F (::1) 1.30ms
+[W 14:04:01.461 NotebookApp] 404 GET /static/components/moment/locale/en-gb.js?v=20171128182334 (::1) 1.69ms referer=http://localhost:9200/tree?
+[W 14:04:06.632 NotebookApp] Notebook presentation2.ipynb is not trusted
+[W 14:04:06.683 NotebookApp] 404 GET /static/components/moment/locale/en-gb.js?v=20171128182334 (::1) 1.84ms referer=http://localhost:9200/notebooks/presentation2.ipynb
+[I 14:04:09.309 NotebookApp] 302 GET /notebooks/pipeline.svg (::1) 1.03ms
+[I 14:04:09.313 NotebookApp] 302 GET /notebooks/timeline.svg (::1) 0.87ms
+[I 14:04:09.937 NotebookApp] Adapting to protocol v5.1 for kernel d0dc426c-8092-47c9-a283-76173bd25566
+[W 14:04:14.058 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20171128182334 (::1) 2.01ms referer=http://localhost:9200/notebooks/presentation2.ipynb
+[W 14:04:33.302 NotebookApp] 404 GET /notebooks/presentation2.css (::1): No such file or directory: presentation2.css
+[W 14:04:33.303 NotebookApp] 404 GET /notebooks/presentation2.css (::1) 1.59ms referer=http://localhost:9200/notebooks/presentation2.ipynb
+[W 14:04:33.304 NotebookApp] 404 GET /notebooks/rise.css (::1): No such file or directory: rise.css
+[W 14:04:33.305 NotebookApp] 404 GET /notebooks/rise.css (::1) 1.48ms referer=http://localhost:9200/notebooks/presentation2.ipynb
+[I 14:06:09.350 NotebookApp] Saving file at /presentation2.ipynb
+[W 14:06:09.351 NotebookApp] Notebook presentation2.ipynb is not trusted
+[W 14:32:51.611 NotebookApp] Notebook presentation2.ipynb is not trusted
+[I 14:32:52.310 NotebookApp] 302 GET /notebooks/pipeline.svg (::1) 1.30ms
+[I 14:32:53.071 NotebookApp] 302 GET /notebooks/timeline.svg (::1) 1.29ms
+[I 14:32:53.347 NotebookApp] Adapting to protocol v5.1 for kernel d0dc426c-8092-47c9-a283-76173bd25566
+[W 14:32:54.366 NotebookApp] 404 GET /nbextensions/widgets/notebook/js/extension.js?v=20171128182334 (::1) 2.10ms referer=http://localhost:9137/notebooks/presentation2.ipynb
+[I 14:34:54.280 NotebookApp] Saving file at /presentation2.ipynb
+[W 14:34:54.281 NotebookApp] Notebook presentation2.ipynb is not trusted
+[I 14:36:53.989 NotebookApp] Saving file at /presentation2.ipynb
+[W 14:36:53.990 NotebookApp] Notebook presentation2.ipynb is not trusted
+[I 14:38:54.198 NotebookApp] Saving file at /presentation2.ipynb
+[W 14:38:54.199 NotebookApp] Notebook presentation2.ipynb is not trusted
+[I 14:40:54.503 NotebookApp] Saving file at /presentation2.ipynb
+[W 14:40:54.504 NotebookApp] Notebook presentation2.ipynb is not trusted
+[I 14:42:54.039 NotebookApp] Saving file at /presentation2.ipynb
+[W 14:42:54.040 NotebookApp] Notebook presentation2.ipynb is not trusted
+[I 14:44:53.819 NotebookApp] Saving file at /presentation2.ipynb
+[W 14:44:53.820 NotebookApp] Notebook presentation2.ipynb is not trusted
+[W 14:48:23.357 NotebookApp] WebSocket ping timeout after 119916 ms.
