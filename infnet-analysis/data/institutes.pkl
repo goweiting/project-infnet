@@ -1,1 +1,1 @@
-/home/goweiting/Documents/project/infnet-scrapper/data/institutes.pkl
+../../infnet-scrapper/data/institutes.pkl
