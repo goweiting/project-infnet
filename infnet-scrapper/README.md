@@ -43,3 +43,25 @@ Due to the problem that different alias was used for different publications. In 
 
 Preview the notebook [here](notebooks/preprocess_poinf.ipynb)
 
+### Output from infnet-scrapper
+The output from this module are the following pandas dataframe that is pickled (also in csv) for usage by future modules:
+
+1. lookup_poinf.pkl(.csv)     :: information for `poinf`
+2. lookup_pub.pkl(.csv)       :: information for `publication`s scrapped
+3. institutes.pkl             :: the different institutes saw in `lookup_poinf`
+
+ To prevent overwriting of these files, modules that uses these data such be added to respective `data` folder using symbolic link:
+```bash$
+# To link lookup_pub.pkl from infnet-scrapper/data to infnet-analysis/data:
+$ pwd
+~/project/infnet-analysis/data
+$ ln -s ~/project/infnet-scrapper/data/lookup_pub.pkl . # creates a symbolic of lookup_pub.pkl here:
+$ l | grep lookup_pub.pkl # to confirm:
+....lookup_pub.pkl -> ~/project/infnet-scrapper/data/lookup_pub.pkl
+```
+
+
+
+## Todo:
+1. Check out CSRanking for comparisons
+2. Try python package for [nameparser](https://pypi.python.org/pypi/nameparser/0.5.4) so that more accurate alias-ing can be gathered.
