@@ -56,7 +56,7 @@ The output from this module are the following pandas dataframe that is pickled (
 $ pwd
 ~/project/infnet-analysis/data
 $ ln -s ~/project/infnet-scrapper/data/lookup_pub.pkl . # creates a symbolic of lookup_pub.pkl here:
-$ l | grep lookup_pub.pkl # to confirm:
+$ l | grep lookup_pub.pkl # to confirm that the symbolic link is created correctly:
 ....lookup_pub.pkl -> ~/project/infnet-scrapper/data/lookup_pub.pkl
 ```
 
