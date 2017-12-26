@@ -16,7 +16,7 @@ Install the dependenceies as laid out in the project's [README.md](../README.md)
 
 
 ## Preprocessing publications
-Following standard NLP techniques to pre-process text: `tokenize -> stopping -> stemming`, in [preprocess_pubs.ipynb](notebooks/preprocess_pubs.ipynb) we concatenate the `publications`,`title`, and `abstract` as our text data for each publication. It is then tokenize (split by whitespace) before stopwords are removed (using a list of [common Enlgihs stopwords](http://members.unine.ch/jacques.savoy/clef/index.html)). Finally, each term is stemmed using `pystemmer`.
+Following standard NLP techniques to pre-process text: `tokenize -> stopping -> stemming`, in [preprocess_pubs.ipynb](notebooks/preprocess_pubs.ipynb) we concatenate the `publications`,`title`, and `abstract` as our text data for each publication. It is then tokenize (split by whitespace) before stopwords are removed (using a list of [common English stopwords](http://members.unine.ch/jacques.savoy/clef/index.html)). Finally, each term is stemmed using `pystemmer`.
 
 The output from this section is `pub_toks.pkl` - a dataframe of all tokens for each publication.
 
