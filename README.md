@@ -61,6 +61,13 @@ For data exploration, visualisation of data and clustering:
 $ conda install scikit-learn # for k-means, manifold, dbscan...
 $ conda install -c conda-forge hdbscan
 ```
+
+## Express setup
+If you already have conda installed, you can use the `environment.yml` file to setup the infnet experiment:
+```bash
+$ conda env create -n infnet -f environment.yml
+```
+
 ---
 
 ## Todo:
