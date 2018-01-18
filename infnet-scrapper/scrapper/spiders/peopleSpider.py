@@ -36,7 +36,8 @@ class ResearchExplorerSpider(scrapy.Spider):
     }
 
     urls = [
-        """http://www.research.ed.ac.uk/portal/en/organisations/school-of-informatics(d9a3581f-93a4-4d74-bf29-14c86a1da9f4)/persons.html"""]
+        #"""http://www.research.ed.ac.uk/portal/en/organisations/school-of-informatics(d9a3581f-93a4-4d74-bf29-14c86a1da9f4)/persons.html"""]
+	"""http://www.research.ed.ac.uk/portal/en/organisations/school-of-mathematics(65c8fa0b-21ee-49f2-ae45-1690a020a962)/persons.html"""]
 
     def start_requests(self):
         try:
