@@ -66,7 +66,7 @@ def generateGCC(G):
 
 def clustering_coeff(G):
     c_coeff = nx.clustering(G)
-    avg_c = np.mean(c_coeff.values())
+    avg_c = np.mean(list(c_coeff.values()))
     return c_coeff, avg_c
 
 
