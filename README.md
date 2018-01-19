@@ -1,7 +1,7 @@
 # Informatics Collaboration Network & Topic Network
 Focusing on the School of Informatics, University of Edinburgh, a collaboration network was created using informtion from the University's collection of research publications [Edinburgh Research Explorer](http://www.research.ed.ac.uk/portal/en/organisations/school-of-informatics(d9a3581f-93a4-4d74-bf29-14c86a1da9f4).html "School of Informatics - Edinburgh Research Explorer"). More details in [infnet-scrapper](./infnet-scrapper/notebooks).
 
-Using the publications (abstracts) scrapped from the research explorer, [topic modells](./topicModel/notebooks) were inferred, and a topic network[1] was generated. A collaboration network was also [created, visualised and analysed](./infnet-analysis/notebooks).
+Using the publications (abstracts) scrapped from the research explorer, [topic models](./topicModel/notebooks) were inferred, and a topic network[1] was generated. A collaboration network was also [created, visualised and analysed](./infnet-analysis/notebooks).
 
 ---
 
@@ -62,11 +62,11 @@ $ conda install scikit-learn # for k-means, manifold, dbscan...
 $ conda install -c conda-forge hdbscan
 ```
 
-## Express setup
+<!-- ## Express setup
 If you already have conda installed, you can use the `environment.yml` file to setup the infnet experiment:
 ```bash
 $ conda env create -n infnet -f environment.yml
-```
+```-->
 
 ---
 

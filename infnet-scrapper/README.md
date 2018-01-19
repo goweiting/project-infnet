@@ -1,9 +1,20 @@
 # infnet-scrapper
 contains two components:
 
-1. Scrapping data using [scrapy](https://github.com/scrapy/scrapy).
+1. Data mining using [scrapy](https://github.com/scrapy/scrapy).
 2. Preprocessing the scrapped data for used - this mainly concern cleaning up the different aliases that a specific individual might have across different publications.
 
+
+## Dataset
+We are interested in the collaboration network that we can derieve from [Edinburgh Research Explorer](http://www.research.ed.ac.uk/portal/). In specific, we are interested in the reserach outputs (publications) from the School of Informatics.
+
+### Versions of data scrapped:
+- 15 Nov 2017
+  - First upload of data scrapped from School of Informatics
+- 17 Jan 2018
+  - Second upload of data scrapped from School of Informatics
+  - Move first dataset to [`data_old`](data_old)
+  - Also scrapped School of Mathematics. See [`data_schoolofmathematics`](data_schoolofmathematics)
 
 ---
 
@@ -59,7 +70,6 @@ $ ln -s ~/project/infnet-scrapper/data/lookup_pub.pkl . # creates a symbolic of 
 $ l | grep lookup_pub.pkl # to confirm that the symbolic link is created correctly:
 ....lookup_pub.pkl -> ~/project/infnet-scrapper/data/lookup_pub.pkl
 ```
-
 
 
 ## Todo:
