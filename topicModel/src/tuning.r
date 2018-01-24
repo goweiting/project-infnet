@@ -6,7 +6,7 @@ print('Running LDA tuning on fullpub:')
 library('tm')
 library('ldatuning')
 library('topicmodels')
-library('magrittr')
+#library('magrittr')
 
 # Loading documents
 docs <- scan(file = '../data/fullpub/combined_toks.txt', character(), sep = '\n')
@@ -53,4 +53,5 @@ system.time(
     verbose = TRUE
   )
 )
+save(list=c("topic_number2"), file="./tuning.topic_number2.rdata")
 print("===COMPLETED EXECUTION===")
