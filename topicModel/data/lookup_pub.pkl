@@ -1,1 +1,0 @@
-../../infnet-scrapper/data/lookup_pub.pkl
