@@ -1,12 +1,20 @@
-# infnet-scrapper
+# data (was infnet-scrapper)
 contains two components:
 
-1. Data mining using [scrapy](https://github.com/scrapy/scrapy).
-2. Preprocessing the scrapped data for used - this mainly concern cleaning up the different aliases that a specific individual might have across different publications.
+1. [bin](./bin): scripts and binaries for:
+    1. Data mining using [scrapy](https://github.com/scrapy/scrapy).
+    2. Converting PDFs downloaded to text files using [pdfminer.six](https://github.com/pdfminer/pdfminer.six)
+    3. and more scripts!
 
+2. [Notebook](./notebooks) For:
+    1. Preprocessing the scrapped data for used - this mainly concern cleaning up the different aliases that a specific individual might have across different publications.
+    2. Notebooks for each different dataset is isolated for ease of reference.
+3. Dataset: We are interested in the collaboration network that we can derieve from [Edinburgh Research Explorer](http://www.research.ed.ac.uk/portal/). In specific, we are interested in the reserach outputs (publications) from the School of Informatics.
+    1. [data:schoolofinf](./data_schoolofinf) Data scrapped from School of Informatic's EDinburgh Research Explorer.
+    2. DBLP and arXiv dataset (not available on Github)
 
-## Dataset
-We are interested in the collaboration network that we can derieve from [Edinburgh Research Explorer](http://www.research.ed.ac.uk/portal/). In specific, we are interested in the reserach outputs (publications) from the School of Informatics.
+4. In each of the dataset, original scrapped documents are available, as well as other metadata. Also included are the processsed `toks` for topic modelling.
+
 
 ### Versions of data scrapped:
 - 15 Nov 2017
@@ -15,7 +23,8 @@ We are interested in the collaboration network that we can derieve from [Edinbur
   - Second upload of data scrapped from School of Informatics
   - Move first dataset to [`data_old`](data_old)
   - Also scrapped School of Mathematics. See [`data_schoolofmathematics`](data_schoolofmathematics)
-
+- 28 Jan 2018
+  - modified `infnet-scrapper` to `data`; Reorganisation for clarity
 ---
 
 ## To run `scrapy`
@@ -61,17 +70,18 @@ The output from this module are the following pandas dataframe that is pickled (
 2. lookup_pub.pkl(.csv)       :: information for `publication`s scrapped
 3. institutes.pkl             :: the different institutes saw in `lookup_poinf`
 
- To prevent overwriting of these files, modules that uses these data such be added to respective `data` folder using symbolic link:
-```bash$
+<!-- To prevent overwriting of these files, modules that uses these data such be added to respective `data` folder using symbolic link:
+
+```bash
 # To link lookup_pub.pkl from infnet-scrapper/data to infnet-analysis/data:
 $ pwd
 ~/project/infnet-analysis/data
 $ ln -s ~/project/infnet-scrapper/data/lookup_pub.pkl . # creates a symbolic of lookup_pub.pkl here:
 $ l | grep lookup_pub.pkl # to confirm that the symbolic link is created correctly:
 ....lookup_pub.pkl -> ~/project/infnet-scrapper/data/lookup_pub.pkl
-```
+``` -->
 
 
 ## Todo:
-1. Check out CSRanking for comparisons
-2. Try python package for [nameparser](https://pypi.python.org/pypi/nameparser/0.5.4) so that more accurate alias-ing can be gathered.
+<s>Check out CSRanking for comparisons</s>
+[ ] Try python package for [nameparser](https://pypi.python.org/pypi/nameparser/0.5.4) so that more accurate alias-ing can be gathered.
