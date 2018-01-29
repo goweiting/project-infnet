@@ -9,6 +9,22 @@ from multiprocessing import Pool
 import itertools
 import powerlaw
 
+# DEFINE COLORS
+inst_by_color = {
+    0: 'xkcd:silver',
+    1: 'xkcd:cyan',
+    2: 'xkcd:magenta',
+    3: 'xkcd:indigo',
+    4: 'xkcd:red',
+    5: 'xkcd:lime',
+    6: 'xkcd:goldenrod',
+    7: 'xkcd:azure',
+    8: 'xkcd:lavender',
+    9: 'xkcd:grey green',
+    10: 'xkcd:coral',
+    11: 'xkcd:khaki',
+    'others': 'xkcd:claret'
+}
 
 def avg_degree_dist(degree_seq):
     n = np.sum(degree_seq)

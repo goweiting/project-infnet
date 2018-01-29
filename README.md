@@ -1,54 +1,65 @@
 # Informatics Collaboration Network & Topic Network
 Focusing on the School of Informatics, University of Edinburgh, a collaboration network was created using informtion from the University's collection of research publications [Edinburgh Research Explorer](http://www.research.ed.ac.uk/portal/en/organisations/school-of-informatics(d9a3581f-93a4-4d74-bf29-14c86a1da9f4).html "School of Informatics - Edinburgh Research Explorer"). More details in [infnet-scrapper](./infnet-scrapper/notebooks).
 
-Using the publications (abstracts) scrapped from the research explorer, [topic modells](./topicModel/notebooks) were inferred, and a topic network[1] was generated. A collaboration network was also [created, visualised and analysed](./infnet-analysis/notebooks).
+Using the publications scrapped from the research explorer, [topic models](./topicModel/notebooks) were inferred, and a topic networks[1] were generated. A collaboration network was also [created, visualised and analysed](./infnet-analysis/notebooks).
 
 ---
 
 ## Setting up
 The project is still in development. To use the datasets and run the notebooks on your system, follow the following instruction:
 
-1. The project is developed in python2.7. Using anaconda to setup the virtual environment will be the easiest. You can get a copy of miniconda by issuing the following command:
+1. The project is developed in <s>python2.7</s> python3.6. Using anaconda to setup the virtual environment will be the easiest. You can get a copy of miniconda by issuing the following command:
 ```bash
 $ curl -O https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh # For MacOSX
 $ curl -O https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86.sh # For linux/ubuntu
 $ bash Miniconda3-latest-MacOSX-x86_64.sh # Install miniconda onto your system
 $ echo "export PATH=\""\$PATH":$HOME/miniconda3/bin\"" >> ~/.benv
 $ source ~/.benv
+```
 
-# Create conda environment (name infnet) for project:
-$ conda create -n infnet python=2.7
-$ source activate infnet
+*** NOTE the use of python3 instead ***
+```
+# Create conda environment (name infnet3) for project:
+# Also install essential packages across all modules:
+$ conda create -n infnet3 python=3 pandas matplotlib jupyter ipython ipykernel
+$ source activate infnet3 # Activates the environment
+(infnet3) $ <--- this shows the successfull acitvation of the environment.
 ```
 
 Now, we have to install required python packages. This list is **updated** as the project progresses:
 
-0. In general, for viewing the jupyter notebooks and for plotting the figures:
+1. For [data](./data) pre-processing, additional packages are installed:
 ```
-$ conda install jupyter
-$ conda install matplotlib seaborn
+(infnet3) $ conda install scrapy # for scrapping the research explorer
+(infnet3) $ conda install nltk # this is used for creating tokens for topic modelling
 ```
 
-1. For [infnet-scrapper](./infnet-scrapper):
+1a. To configure NLTK, executing the following in a ***new terminal with infnet3 activated*** :
+```bash
+(infnet3) $ python to launch a python3 shell
+> import nltk
+> nltk.download('stopwords') # select `yes` when prompt.
+> nltk.download('WordNet')
 ```
-$ conda install scrapy # for scrapping the research explorer
-$ conda install pandas # for pre-processing of the scrapped data
-```
+
 
 2. For [infnet-analysis](./infnet-analysis):
 ```
-$ conda install networkx matplotlib numpy
-$ pip install powerlaw # for estimating the distribution of degrees in network
-$ pip install python-louvain # community detection package
+(infnet3) $ conda install networkx numpy
+(infnet3) $ pip install python-louvain # community detection package
 ```
+<!-- $ pip install powerlaw # for estimating the distribution of degrees in network -->
+
 
 3. For [topic modelling](./topicModel):
-Before we input the publications into LDA, there is a need to apply ***standard NLP techniques pre-processing*** to create the Bag-of-words (BOW) representation of the text data: `tokenize -> stopping -> stemming`
+<!-- Before we input the publications into LDA, there is a need to apply ***standard NLP techniques pre-processing*** to create the Bag-of-words (BOW) representation of the text data: `tokenize -> stopping -> stemming`
 
 To that end, the following packages are required:
 ```
 $ pip install pystemmer
 ```
+
+ -->
 
 For topic modelling using ***latent diriclet allocation***
 ```
@@ -62,19 +73,10 @@ $ conda install scikit-learn # for k-means, manifold, dbscan...
 $ conda install -c conda-forge hdbscan
 ```
 
-## Express setup
+<!-- ## Express setup
 If you already have conda installed, you can use the `environment.yml` file to setup the infnet experiment:
 ```bash
 $ conda env create -n infnet -f environment.yml
-```
+```-->
 
 ---
-
-## Todo:
-1. CS Ranking - create similar collaboration network using data from DBLP; comparing collaboration networks, and if possible, the topic network too
-
-## Credits
-[1]: D. M. Blei and J. D. Lafferty, “A correlated topic model of Science,” The Annals of Applied Statistics, vol. 1, no. 1, pp. 17–35, Jun. 2007.
-
-
-
