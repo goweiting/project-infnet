@@ -4,6 +4,10 @@ infnet-scrapper/data/pdf2txt/PDF
 nohup.out
 .ipynb_checkpoints
 
+# R files
+.RData
+.Rhistory
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
