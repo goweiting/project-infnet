@@ -10,21 +10,37 @@ import itertools
 import powerlaw
 
 # DEFINE COLORS
+# inst_by_color = {
+#     0: 'xkcd:silver',
+#     1: 'xkcd:cyan',
+#     2: 'xkcd:magenta',
+#     3: 'xkcd:indigo',
+#     4: 'xkcd:red',
+#     5: 'xkcd:lime',
+#     6: 'xkcd:goldenrod',
+#     7: 'xkcd:azure',
+#     8: 'xkcd:lavender',
+#     9: 'xkcd:grey green',
+#     10: 'xkcd:coral',
+#     11: 'xkcd:khaki',
+#     'others': 'xkcd:claret'
+# }
 inst_by_color = {
-    0: 'xkcd:silver',
-    1: 'xkcd:cyan',
-    2: 'xkcd:magenta',
-    3: 'xkcd:indigo',
-    4: 'xkcd:red',
-    5: 'xkcd:lime',
-    6: 'xkcd:goldenrod',
-    7: 'xkcd:azure',
-    8: 'xkcd:lavender',
-    9: 'xkcd:grey green',
-    10: 'xkcd:coral',
-    11: 'xkcd:khaki',
-    'others': 'xkcd:claret'
+    0: '#e6194b',
+    1: '#3cb44b',
+    2: '#ffe119',
+    3: '#0082c8',
+    4: '#f58231',
+    5: '#911eb4',
+    6: '#46f0f0',
+    7: '#f032e6',
+    8: '#d2f53c',
+    9: '#aaffc3',
+    10: '#000080',
+    11: '#ffd8b1',
+    'others': '#808080'
 }
+
 
 def avg_degree_dist(degree_seq):
     n = np.sum(degree_seq)
