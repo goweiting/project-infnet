@@ -22,12 +22,11 @@ dtm.new   <- dtm[rowTotals> 0, ]
 
 # CTM variables
 control_list_ctm <- list(
-  seed = 5:9,
+  seed =1000,
   nstart = 1,
   best = TRUE,
   verbose=100,
-  keep=100,
-  iter.max=2000
+  keep=100
 )
 
 
