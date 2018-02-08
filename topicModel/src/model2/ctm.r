@@ -18,17 +18,13 @@ inspect(dtm)
 rowTotals <- apply(dtm , 1, sum)
 dtm.new   <- dtm[rowTotals> 0, ]
 
-
-
 # CTM variables
 control_list_ctm <- list(
-  seed =1000,
-  nstart = 1,
-  best = TRUE,
-  verbose=100,
-  keep=100
+  seed=1000,
+  nstart=1,
+  verbose=10,
+  keep=10
 )
-
 
 # RUN DIFFERENT NUMBERS OF TOPIC:
 print('CTM - 35 ')
