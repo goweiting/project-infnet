@@ -1,0 +1,10 @@
+How to run:
+1. Run in console: Uncomment the last three lines in infnet_main.py. and run the file.
+                   - To generate the pickle files from the csv files, you need to run some of the helper functions in the same file.
+                   - Install networkx 2.1
+                   - To get the collaboration graph plot graphviz needs to be installed. I faced some glitch while setting this up. Installed various things from the internet search and now I'm not sure which one actually solved the issue.
+
+2. Run as a webservice: a. Install bottle(https://bottlepy.org/docs/dev/index.html)
+                        b. Change the hostname to your ip address in the last line in bottle_interface.py
+                        c. Run bottle_interface.py
+                        6. Open web browser and open the url specified in the console.
