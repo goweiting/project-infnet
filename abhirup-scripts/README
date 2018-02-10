@@ -10,12 +10,9 @@ How to run:
                         d. Open web browser and open the url specified in the console.
 
 Setup:
-```
-pip install -r requirements.txt
-```
 
 If using (mini)conda/Virtual environment:
 1. create new environment: `conda create -n infnet2 python=2`
 2. Activate the environment: `source activate infnet2`
-3. Install required packages: `pip install -r requirements.txt`
+3. Install required packages: `conda env update --file environment.yml'
 (Tested on my ubuntu 16.04)
