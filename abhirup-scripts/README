@@ -7,4 +7,15 @@ How to run:
 2. Run as a webservice: a. Install bottle(https://bottlepy.org/docs/dev/index.html)
                         b. Change the hostname to your ip address in the last line in bottle_interface.py
                         c. Run bottle_interface.py
-                        6. Open web browser and open the url specified in the console.
+                        d. Open web browser and open the url specified in the console.
+
+Setup:
+```
+pip install -r requirements.txt
+```
+
+If using (mini)conda/Virtual environment:
+1. create new environment: `conda create -n infnet2 python=2`
+2. Activate the environment: `source activate infnet2`
+3. Install required packages: `pip install -r requirements.txt`
+(Tested on my ubuntu 16.04)

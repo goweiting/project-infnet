@@ -1,0 +1,13 @@
+name: infnet2
+channels:
+- defaults
+- conda-forge
+dependencies:
+- numpy
+- pandas
+- networkx==2.1
+- gensim
+- matplotlib
+- pygraphviz
+- pip:
+  - bottle
