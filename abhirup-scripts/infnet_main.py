@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from gensim.corpora import Dictionary
 import ast, pickle
 import networkx as nx
+import os
 
 pub_token_map_filename="data/pub_token_map.csv"
 authors_filename="data/authors.csv"
@@ -24,7 +25,7 @@ def load_files():
     authors = pd.read_csv(authors_filename)
     authors_alias = pd.read_csv(authors_alias_filename)
     publications = pd.read_csv(publications_filename)
-    
+
     return pub_token_map, authors, authors_alias, publications
 
 def get_word_frequencies(pub_token_map):
@@ -125,7 +126,7 @@ def get_freq_sorted_authors(output_authors):
     additional_list = []
     for i in range(len(uniq_authors)):
         additional_list.append( (uniq_authors[i], freq_count[i] ) )
-    return sorted(additional_list, reverse=True, key=lambda t: t[1]) 
+    return sorted(additional_list, reverse=True, key=lambda t: t[1])
 
 def get_sorted_authors(output_authors_scores):
     authors_aggregate_scores = []
@@ -147,7 +148,7 @@ def plot_collab_graph(collab_graph):
             positions[key] = ( np.random.uniform(positions[key][0]-const, positions[key][0]+const),
                                positions[key][1])
             xs.append(positions[key][0]); ys.append(positions[key][1])
-        plt.figure(3,figsize=(15,15)) 
+        plt.figure(3,figsize=(15,15))
         nx.draw(collab_graph, pos=positions, with_labels=True, node_color='w', font_size=10, node_size=0)
         #plt.show()
         plt.savefig('static/images/collab_graph.png')
@@ -167,7 +168,7 @@ def get_authors_for_query(_pub_token_map, _authors, _authors_alias, _publication
     # 3. Score each co-occurring token whose jaccard similarity and confidence both are good.
     # 4. Take tokens with score more than 95 percentile of the scores.
     # 5. Find the set of publications they occur in
-    
+
     # 6. score of a publication = sum of the scores of the tokens in that publication (tokens which do not relate to query have score 0)
     #       - Another way to identify the important publications is the union of the k-nn of the publications where the query appeared. LSH might be a good option. But LSH on Jaccard similarity is for detecting exactly duplicate documents. But, here the documents are similar not duplicates. So, standard way for LSH does not apply.
     #       - Another way is to find k-nn in the citation graph of the publications where the query appeared.
@@ -258,7 +259,7 @@ def get_authors_for_query(_pub_token_map, _authors, _authors_alias, _publication
                 collab_graph.add_edge(a1, a2)
 
     plot_collab_graph(collab_graph)
-    
+
     sorted_authors = get_sorted_authors(output_authors_scores)
     #sorted_uniq_authors = get_freq_sorted_authors(output_authors)
     #print "len(sorted_authors):", len(sorted_authors)
