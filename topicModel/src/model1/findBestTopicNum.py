@@ -11,11 +11,11 @@ from gensim.corpora import Dictionary
 # Use coherence model to measure the LDA models generated
 from gensim.models.coherencemodel import CoherenceModel
 
-passes = 10  # total number of times the corpus is seen
+passes = 100  # total number of times the corpus is seen
 iterations = 1000  # how many times each document is seen
 chunksize = 2000  # how many documents each mini-batch
-update_every = 0  # Batch learning
-eval_every = None
+update_every = 2000  # Batch learning
+eval_every = 2000
 rng = RandomState(93748573)
 
 
