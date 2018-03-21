@@ -11,7 +11,7 @@ from gensim.models.coherencemodel import CoherenceModel
 
 # passes = 100  # total number of times the corpus is seen
 # iterations = 1000  # how many times each document is seen
-passes = 5  # total number of times the corpus is seen
+passes = 100  # total number of times the corpus is seen
 iterations = 1000  # how many times each document is seen
 chunksize = 2000  # how many documents each mini-batch
 update_every = 2000  # Batch learning
