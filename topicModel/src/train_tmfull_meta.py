@@ -19,8 +19,6 @@ if __name__ == '__main__':
       os.path.join(DATA_DIR, 'toks', 'toks.combined.pkl'))
   df_combined_toks = df_combined_toks.drop(df_combined_toks[(
       df_combined_toks.year < 1997) | (df_combined_toks.year > 2017)].index)
-  df_combined_toks['toks_pdf2txt'] = df_combined_toks.toks_pdf2txt.apply(
-      lambda x: [] if not len(x) else x)
   df_combined_toks['toks_metada'] = df_combined_toks.toks_metada.apply(
       lambda x: [] if not len(x) else x)
   dict_meta = Dictionary.load(os.path.join(

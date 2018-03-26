@@ -20,8 +20,6 @@ if __name__ == '__main__':
   df_combined_toks = df_combined_toks.drop(
       df_combined_toks[(df_combined_toks.year < 2012)
                        | (df_combined_toks.year > 2017)].index)
-  df_combined_toks['toks_pdf2txt'] = df_combined_toks.toks_pdf2txt.apply(
-      lambda x: [] if not len(x) else x)
   df_combined_toks['toks_metada'] = df_combined_toks.toks_metada.apply(
       lambda x: [] if not len(x) else x)
 
