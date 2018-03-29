@@ -49,18 +49,10 @@ if __name__ == "__main__":
       os.path.join(DATA_DIR, 'poinf_collabgraph_1997-2017.txt'),
       sep='\n',
       names=['id'])
-  # infnet6yr = pd.read_csv(
-  #     os.path.join(DATA_DIR, 'poinf_collabgraph_2012-2017.txt'),
-  #     sep='\n',
-  #     names=['id'])
-  # infnet6yrw = pd.read_csv(
-  #     os.path.join(DATA_DIR, 'poinf_collabgraph_2012-2017_weighted.txt'),
-  #     sep='\n',
-  #     names=['id'])
 
   # Combine all tokens:
   topicnet20yr = infnet20yr.join(
-      df_pubmapping.set_index('id'), how='inner', on='id')
+      df_pubmapping.set_index('id'), how='left', on='id')
   topicnet20yr['toks'] = topicnet20yr['pub_ids'].apply(
       lambda a: gen_toks(a, lookup_combined_toks))
   topicnet20yr['tm20yr_probs'] = topicnet20yr['toks'].apply(

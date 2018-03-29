@@ -32,7 +32,7 @@ warnings.filterwarnings('ignore')
 DATA_DIR = '../../data/data_schoolofinf/'
 
 
-def prepare_toks(top=1997,bottom=2017):
+def prepare_toks(top=1997, bottom=2017):
   """Constraint the tokens tokens with the [top,bottom]
   """
   # Tokens from collection
@@ -82,10 +82,11 @@ def gen_toks(pub_ids, df_toks):
     out += a
   return out
 
-def _cosine(a,b):
+
+def _cosine(a, b):
   a_norm = np.linalg.norm(a)
   b_norm = np.linalg.norm(b)
-  return np.dot(a,b) / (a_norm*b_norm)
+  return np.dot(a, b) / (a_norm * b_norm)
 
 
 def compare_researchers(list_of_probs, n_topics):
@@ -100,10 +101,10 @@ def compare_researchers(list_of_probs, n_topics):
 
   for i in range(num_individuals):
     a = _to_list(list_of_probs[i], n_topics)
-    assert all(i>=0 for i in a), "negative probabilities?"
+    assert all(i >= 0 for i in a), "negative probabilities?"
     for j in range(num_individuals):
       b = _to_list(list_of_probs[j], n_topics)
-      assert all(i>=0 for i in b)
+      assert all(i >= 0 for i in b)
       dist = cosine(a, b)
       # assert dist <= 1. and dist >= 0., "negative distance {}?, a:{}, b:{}".format(dist, a,b)
       sim_matrix[i][j] = 1. - dist  # cosine(a,b) outputs the distance
@@ -175,7 +176,9 @@ def find_best_threshold(ground_truth_adj_mat,
   end_conditions = True
   lowest_avg_distance = 1  # maximum possible
   nb_individuals = ground_truth_adj_mat.shape[0]
-  assert nb_individuals == sim_matrix.shape[0], "adjacency matrices and similarity matrix must have the same shape"
+  assert nb_individuals == sim_matrix.shape[0],\
+      "adjacency matrices and similarity matrix must have the same shape! adj mat: {} ; sim mat: {}".format(
+      ground_truth_adj_mat.shape, sim_matrix.shape)
 
   epoch = 0
   maximum_edges = 0

@@ -35,7 +35,6 @@ from helper_embedding import *
 
 if __name__ == "__main__":
   lookup_combined_toks = prepare_toks(top=2012, bottom=2017)
-  print(len(lookup_combined_toks))
   df_pubmapping = get_poinf_pub_mapping()
 
   # Load topic models:
@@ -50,9 +49,12 @@ if __name__ == "__main__":
       sep='\n',
       names=['id'])
 
+ # load collaboration graph adjacency matrix
+  ground_truth_adj_mat = np.load(os.path.join(DATA_DIR, 'mat', 'infnet6yrs-adj-mat.order6yr.pkl')) # this two should be in the same order
+
   # Combine all tokens:
   topicnet6yr = infnet6yr.set_index('id').join(
-      df_pubmapping.set_index('id'), how='inner')
+      df_pubmapping.set_index('id'), how='left')
   topicnet6yr['toks'] = topicnet6yr['pub_ids'].apply(
       lambda a: gen_toks(a, lookup_combined_toks))
   topicnet6yr['tm6yr_probs'] = topicnet6yr['toks'].apply(
@@ -64,9 +66,7 @@ if __name__ == "__main__":
   cosim = compare_researchers(
       topicnet6yr.tm6yr_probs.tolist(), tmrest_meta.num_topics)
 
-  # load collaboration graph adjacency matrix
-  ground_truth_adj_mat = np.load(os.path.join(
-      DATA_DIR, 'mat', 'infnet6yrs-adj-mat.pkl'))
+
 
   # Find optimum threshold
   thresholds, edges, distances, closest_edges, best_threshold, lowest_avg_distance, best_j_dist_epoch, best_threshold_j_dist = \
