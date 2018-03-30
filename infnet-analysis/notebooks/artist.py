@@ -7,8 +7,9 @@ rng = RandomState(787351)
 import matplotlib.pyplot as plt
 plt.style.use(['seaborn-poster'])
 import pandas as pd
-# from helper import *
-
+import logging
+logging.basicConfig(
+    format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
 # Global vars
 DATA_DIR = '../../data/data_schoolofinf'

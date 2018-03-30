@@ -15,11 +15,39 @@ import powerlaw
 
 DATA_DIR = '../../data/data_schoolofinf'
 
+
 def get_institute():
     return pkl.load(open(os.path.join(DATA_DIR, 'institutes.pkl'), 'rb'))
 
+
 def get_lookup_poinf():
     return pd.read_pickle(os.path.join(DATA_DIR, 'lookup_poinf_w_yr.pkl'))
+
+
+def prepare_toks(top=1997, bottom=2017):
+    """Constraint the tokens tokens with the [top,bottom]
+    """
+    # Tokens from collection
+    lookup_combined_toks = pd.read_pickle(
+        os.path.join(DATA_DIR, 'toks', 'toks.combined.pkl'))
+    lookup_combined_toks.drop(
+        lookup_combined_toks[(lookup_combined_toks.year < top)
+                             | (lookup_combined_toks.year > bottom)].index,
+        inplace=True)
+    lookup_combined_toks[
+        'toks_pdf2txt'] = lookup_combined_toks.toks_pdf2txt.apply(
+            lambda x: [] if not len(x) else x)
+    lookup_combined_toks[
+        'toks_metada'] = lookup_combined_toks.toks_metada.apply(
+            lambda x: [] if not len(x) else x)
+
+    return lookup_combined_toks
+
+
+def get_poinf_pub_mapping():
+    df_pubmapping = pd.read_pickle(
+        os.path.join(DATA_DIR, 'poinf_to_pub_mapping.pkl'))
+    return df_pubmapping
 
 
 def avg_degree_dist(degree_seq):
@@ -90,6 +118,7 @@ def clustering_coeff(G):
 def centrality_measure(G):
     nodes_centrallity = nx.degree_centrality(G)
     return nodes_centrallity
+
 
 def partitions(nodes, n):
     "Partitions the nodes into n subsets"
@@ -206,4 +235,3 @@ def create_adj_mat(g, order, draw=False, use_order=True, weighted=False):
             tick.label.set_fontsize(5)
 
     return adj_mat, fig, order
-
