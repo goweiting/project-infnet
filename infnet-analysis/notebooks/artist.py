@@ -32,6 +32,8 @@ INSTITUTES = pkl.load(open(os.path.join(DATA_DIR, 'institutes.pkl'), 'rb'))
 #     'others': 'xkcd:claret'
 # }
 
+# import seaborn as sns
+# _husl = sns.color_palette('Set2',n_colors=13)
 inst_by_color = {
     0: '#000000',
     1: '#0000ff',
@@ -47,6 +49,10 @@ inst_by_color = {
     11: '#e6f2ff',
     'others': '#808080'
 }
+# _i=0
+# for a in inst_by_color.keys():
+#     inst_by_color[a] = _husl[_i]
+#     _i+=1
 
 
 def color_by_inst(g, lookup_poinf):
@@ -88,8 +94,8 @@ def draw_default_layout(g,
     # id of nodes in that institute; basically separated the individuals into
     # institutes (for shell layout)
 
-    _nlist = get_default_nlist(as_dict=False)
-    nlist_merged = get_default_nlist(as_dict=True)
+    _nlist = get_default_nlist(lookup_poinf, as_dict=False)
+    nlist_merged = get_default_nlist(lookup_poinf, as_dict=True)
 
     # Cross institute collaboration
     edges = []
@@ -121,7 +127,7 @@ def draw_default_layout(g,
         ax=ax,
         edge_color='#999966',
         node_size=60,
-        node_color=color_by_inst(g),
+        node_color=color_by_inst(g, lookup_poinf),
         edgelist=edges,  # <- Cross collaborations!
         width=edgewidth)
 
@@ -155,7 +161,7 @@ def draw_default_layout(g,
             ax=ax,
             edge_color='#999966',
             node_size=60,
-            node_color=color_by_inst(_g),
+            node_color=color_by_inst(_g, lookup_poinf),
             width=edgewidth)
         #         col_idx += 1
         #         col_idx = col_idx % 3
@@ -204,11 +210,17 @@ def get_default_nlist(lookup_poinf, as_dict=False):
         return _nlist
 
 
-def draw_circular_layout(g, with_weight=False, scale=2, file_prefix=None, SAVE_GRAPHS=False):
-    # generate pos
+def draw_circular_layout(g, 
+                         lookup_poinf, 
+                         with_weight=False,
+                         scale=2, 
+                         file_prefix=None,
+                         SAVE_GRAPHS=False):
 
     logging.info('SAVE_GRAPHS: {}'.format(SAVE_GRAPHS))
-    nlist = get_default_nlist()
+    
+    # generate pos
+    nlist = get_default_nlist(lookup_poinf)
     _nlist = []
     for x in nlist:
         _nlist.extend(x)
@@ -233,7 +245,7 @@ def draw_circular_layout(g, with_weight=False, scale=2, file_prefix=None, SAVE_G
         ax=ax,
         node_size=30,
         edge_color='#999966',
-        node_color=color_by_inst(g),
+        node_color=color_by_inst(g, lookup_poinf),
         width=edgewidth)
 
     if SAVE_GRAPHS:
