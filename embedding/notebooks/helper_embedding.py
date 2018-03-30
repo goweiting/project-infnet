@@ -41,16 +41,20 @@ def _to_list(l, target_length):
     out[i] = v
   return out
 
-# Function used to generate a list of tokens based on the publications of an individual (pub_ids)
-
 
 def gen_toks(pub_ids, df_toks):
   """
+  Function used to generate a list of tokens based on the publications of an individual (pub_ids)
   Take in a set of pub_ids and concatenate all the tokens together
+
+  Arguments:
+    pub_ids : list of publication ids
+    df_toks : pandas dataframe with all the publications under consideration
   """
+  # Only use publications that are in df_toks
   _indices = set(df_toks.index)
   pub_ids = pub_ids.intersection(_indices)
-  _df = df_toks.loc[list(pub_ids)]  # slice the tokens to get those
+  _df = df_toks.loc[list(pub_ids)]  # slice the tokens to get publications in pub_ids
   out = []
   for a in _df.toks_metada.tolist():  # convert reduce the list of list
     out += a
@@ -58,6 +62,7 @@ def gen_toks(pub_ids, df_toks):
 
 
 def _cosine(a, b):
+  #  my implementation of cosine similarity
   a_norm = np.linalg.norm(a)
   b_norm = np.linalg.norm(b)
   return np.dot(a, b) / (a_norm * b_norm)
@@ -81,31 +86,27 @@ def compare_researchers(list_of_probs, n_topics):
       assert all(i >= 0 for i in b)
       dist = cosine(a, b)
       # assert dist <= 1. and dist >= 0., "negative distance {}?, a:{}, b:{}".format(dist, a,b)
-      sim_matrix[i][j] = 1. - dist  # cosine(a,b) outputs the distance
+      sim_matrix[i][j] = 1. - dist  # cosine(a,b) outputs the distance (see scipy.spatial.distance)
     sim_matrix[i][i] = 0.
   return sim_matrix
 
 
-def jaccard_dist(x_true, x, theta=None, binary=True):
+def jaccard_dist(x_true, x, theta):
   """
   Given vectors x_true and x of the same length, calculate the
   jaccard distance between x_true and x.
   Theta is represents the threshold parameter to filter x by.
   If given, any values in x < theta will be set to 0
   """
-  x = np.array(x)
-  if binary:
-    if theta:
-      idx = x < theta
-      x[idx] = False
-      x[~idx] = True
-#             print(x)
-      # np.sum(x) = number of edges (1s)
-      return jaccard(x_true, x), np.sum(x, dtype=int)
-    else:
-      return jaccard(x_true, x)
-  else:
-    raise("not implemented")
+  _x = np.array(x)
+  idx = _x < theta
+
+  _x[idx] = False
+  _x[~idx] = True
+  num_edges = np.sum(x, dtype=int) # CountEdges
+  j_dist = jaccard(x_true, _x) # calculates the local jaccard distance
+  return j_dist , num_edges
+
 
 
 def binom_choose(n, k):
@@ -121,7 +122,7 @@ def set_edges(matrix, threshold, binary=True):
   _matrix = np.zeros_like(matrix, dtype=np.int32)
 
   w, h = np.shape(matrix)
-  logging.info('dimension: {}, {}'.format(w,h))
+  logging.info('dimension: {}, {}'.format(w, h))
   for i in range(w):
     for j in range(h):
       if binary:
@@ -133,16 +134,25 @@ def set_edges(matrix, threshold, binary=True):
 
 def find_best_threshold(ground_truth_adj_mat,
                         sim_matrix,
-                        start_threshold=0.005,
+                        binary_edges=True,
+                        start_threshold=0.001,
                         step_size=0.005,
                         num_iter=100,
                         verbose=True):
-  """
-  An iterative approach to find the best threshold such that
-  when sim_matrix is under binary threshold, it is the most similar to graound_truth_adj_mat
-  that is binary.
+  """An iterative approach to find the best threshold such that
+  the number of edges in sim_matrix subjected to a threshold is most similar
+  to the ground_truth_adj_mat
 
-  The condition used can be changed.git pu
+  The condition used can be changed.
+
+  Args:
+    ground_truth_adj_mat: the collaboration graph represent in adjacency matrix
+    sim_matrix: the cosine similarity matrix derived from compare_researchers
+    start_threshold: Threshold to begin the iterative process with; every step increases the threshold
+                     (default: {0.005})
+    step_size: increment per iteration (default: {0.001})
+    num_iter: total number of iteration (default: {100})
+    verbose: Set to true to print the iteration progress (default: {True})
   """
 
   # Initialise the parameters
@@ -177,7 +187,7 @@ def find_best_threshold(ground_truth_adj_mat,
       # calculate local statistics for each node
       # its convered in jaccard_dist because we calculate the jaccard distance
       # between each individual too.
-      j_dist, num_edge = jaccard_dist(x_true, x, theta=threshold, binary=True)
+      j_dist, num_edge = jaccard_dist(x_true, x, theta=threshold)
       distances[i] = j_dist
       num_edges += num_edge
       i += 1
@@ -226,7 +236,7 @@ def find_best_threshold(ground_truth_adj_mat,
 
 
 def threshold_plot(thresholds, distances, edges, best_threshold, lowest_edges,
-                   j_dist_best_threshold, lowest_j_distance, ground_truth_adj_mat ):
+                   j_dist_best_threshold, lowest_j_distance, ground_truth_adj_mat):
     # Plot graphs:
   fig = plt.figure(figsize=(8, 8))
   ax = fig.add_subplot(111)
@@ -237,7 +247,7 @@ def threshold_plot(thresholds, distances, edges, best_threshold, lowest_edges,
 
   ax2 = ax.twinx()
   ax2.plot(thresholds, edges, 'r-.',
-                label='Num edges in topic-collab net')
+           label='Num edges in topic-collab net')
   ax2.set_ylabel('Total Number of Edges')
 
   ax2.plot(
@@ -247,10 +257,10 @@ def threshold_plot(thresholds, distances, edges, best_threshold, lowest_edges,
       label='Num edges in collab net')
 
   ax.scatter(j_dist_best_threshold, lowest_j_distance, facecolors='c',
-                   edgecolors='c', alpha=.4, label='Best threshold (avg jaccard dist)')
+             edgecolors='c', alpha=.4, label='Best threshold (avg jaccard dist)')
   ax2.scatter(best_threshold, lowest_edges, facecolors='m',
-                    edgecolors='m', alpha=.4, label='Best threshold (number of edges)')
+              edgecolors='m', alpha=.4, label='Best threshold (number of edges)')
 
-  fig.legend(loc='upper right',bbox_to_anchor=(.8,.89))
+  fig.legend(loc='upper right', bbox_to_anchor=(.8, .89))
   plt.tight_layout()
   return fig
