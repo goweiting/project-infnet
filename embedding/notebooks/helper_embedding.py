@@ -273,10 +273,10 @@ def threshold_plot(thresholds, distances, edges, best_threshold, lowest_edges,
       label='Num edges in collab net')
 
   ax.scatter(j_dist_best_threshold, lowest_j_distance, facecolors='c',
-                   edgecolors='c', alpha=.2, label='Lowest avg jaccard dist epoch')
+                   edgecolors='c', alpha=.4, label='Lowest avg jaccard dist epoch')
   ax2.scatter(best_threshold, lowest_edges, facecolors='m',
-                    edgecolors='m', alpha=.2, label='Closest epoch to ground-truth')
+                    edgecolors='m', alpha=.4, label='Closest epoch to collab net')
 
-  fig.legend(loc='upper center')
+  fig.legend(loc='upper right',bbox_to_anchor=(.8,.89))
   plt.tight_layout()
   return fig
