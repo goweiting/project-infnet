@@ -1,11 +1,14 @@
 """
 A collection of useful functions!
 """
-
+import os
 import networkx as nx
 import numpy as np
+import pandas as pd
+import pickle as pkl
 import matplotlib.pyplot as plt
-plt.style.use('seaborn-colorblind')
+import seaborn as sns
+plt.style.use('seaborn-poster')
 from multiprocessing import Pool
 import itertools
 import powerlaw
@@ -41,6 +44,14 @@ inst_by_color = {
     11: '#e6f2ff',
     'others': '#808080'
 }
+
+DATA_DIR = '../../data/data_schoolofinf'
+
+def get_institute():
+    return pkl.load(open(os.path.join(DATA_DIR, 'institutes.pkl'), 'rb'))
+
+def get_lookup_poinf():
+    return pd.read_pickle(os.path.join(DATA_DIR, 'lookup_poinf_w_yr.pkl'))
 
 
 def avg_degree_dist(degree_seq):
@@ -110,7 +121,7 @@ def clustering_coeff(G):
 
 def centrality_measure(G):
     nodes_centrallity = nx.degree_centrality(G)
-
+    return nodes_centrallity
 
 def partitions(nodes, n):
     "Partitions the nodes into n subsets"
@@ -184,3 +195,47 @@ def adj_mat_to_graph(matrix, order, weighted=False):
                 assert node_2 != node_1, "self-loop detected"
                 g.add_edge(node_1, node_2, weight=matrix[i][w])
     return g
+
+
+def create_adj_mat(g, order, draw=False, use_order=True, weighted=False):
+    """
+    Create the adjacenecy in a given order (list of node id)
+    using the given graph g
+    """
+    if not use_order:
+        nodes_in_g = list(g.nodes)
+        order = [a for a in order if a in nodes_in_g]
+
+    adj_mat = np.zeros([len(order), len(order)])
+    for i, node in enumerate(order):
+        try:
+            neighbours = [n for n in g[node]]
+            for neighbour in neighbours:
+                idx = order.index(neighbour)
+                if weighted:
+                    adj_mat[i][idx] = adj_mat[i][idx] = g[node][neighbour]['weight']
+                else:
+                    adj_mat[i][idx] = 1
+        except KeyError:
+            # This happens when the individuals in the ORDER is not
+            # in the graph g
+            pass
+
+    fig = None
+    # Draw the graph:
+    if draw:
+        fig = plt.figure(figsize=(10, 9))
+        ax = fig.add_subplot(111)
+        sns.heatmap(
+            adj_mat,
+            square=True,
+            yticklabels=order,
+            xticklabels="",
+            ax=ax,
+            cbar=False)
+
+        for tick in ax.yaxis.get_major_ticks():
+            tick.label.set_fontsize(5)
+
+    return adj_mat, fig, order
+

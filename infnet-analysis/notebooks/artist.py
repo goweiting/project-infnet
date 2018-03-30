@@ -15,10 +15,6 @@ DATA_DIR = '../../data/data_schoolofinf'
 INSTITUTES = pkl.load(open(os.path.join(DATA_DIR, 'institutes.pkl'), 'rb'))
 
 
-def get_institute():
-    return INSTITUTES
-
-
 def color_by_inst(g, lookup_poinf):
     # light up the nodes based on the institutes they belong to:
     node_color = []
@@ -41,48 +37,6 @@ def add_inst_labels(ax, with_legend=True):
     ax.scatter([0], [0], color='white', s=100, edgecolors='none')
     return ax
 
-
-def create_adj_mat(g, order, draw=False, use_order=True, weighted=False):
-    """
-    Create the adjacenecy in a given order (list of node id)
-    using the given graph g
-    """
-    if not use_order:
-        nodes_in_g = list(g.nodes)
-        order = [a for a in order if a in nodes_in_g]
-
-    adj_mat = np.zeros([len(order), len(order)])
-    for i, node in enumerate(order):
-        try:
-            neighbours = [n for n in g[node]]
-            for neighbour in neighbours:
-                idx = order.index(neighbour)
-                if weighted:
-                    adj_mat[i][idx] = adj_mat[i][idx] = g[node][neighbour]['weight']
-                else:
-                    adj_mat[i][idx] = 1
-        except KeyError:
-            # This happens when the individuals in the ORDER is not
-            # in the graph g
-            pass
-
-    fig = None
-    # Draw the graph:
-    if draw:
-        fig = plt.figure(figsize=(10, 9))
-        ax = fig.add_subplot(111)
-        sns.heatmap(
-            adj_mat,
-            square=True,
-            yticklabels=order,
-            xticklabels="",
-            ax=ax,
-            cbar=False)
-
-        for tick in ax.yaxis.get_major_ticks():
-            tick.label.set_fontsize(5)
-
-    return adj_mat, fig, order
 
 
 def draw_default_layout(g,
@@ -218,6 +172,8 @@ def get_default_nlist(lookup_poinf, as_dict=False):
 
 def draw_circular_layout(g, with_weight=False, scale=2, file_prefix=None, SAVE_GRAPHS=False):
     # generate pos
+
+    logging.info('SAVE_GRAPHS: {}'.format(SAVE_GRAPHS))
     nlist = get_default_nlist()
     _nlist = []
     for x in nlist:
