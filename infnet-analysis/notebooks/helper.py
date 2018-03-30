@@ -13,38 +13,6 @@ from multiprocessing import Pool
 import itertools
 import powerlaw
 
-# DEFINE COLORS
-# inst_by_color = {
-#     0: 'xkcd:silver',
-#     1: 'xkcd:cyan',
-#     2: 'xkcd:magenta',
-#     3: 'xkcd:indigo',
-#     4: 'xkcd:red',
-#     5: 'xkcd:lime',
-#     6: 'xkcd:goldenrod',
-#     7: 'xkcd:azure',
-#     8: 'xkcd:lavender',
-#     9: 'xkcd:grey green',
-#     10: 'xkcd:coral',
-#     11: 'xkcd:khaki',
-#     'others': 'xkcd:claret'
-# }
-inst_by_color = {
-    0: '#000000',
-    1: '#0000ff',
-    2: '#00ffff',
-    3: '#00cc00',
-    4: '#ff9900',
-    5: '#ff0000',
-    6: '#F20BCE',
-    7: '#999966',
-    8: '#ccffff',
-    9: '#ffffb3',
-    10: '#e6e6ff',
-    11: '#e6f2ff',
-    'others': '#808080'
-}
-
 DATA_DIR = '../../data/data_schoolofinf'
 
 def get_institute():

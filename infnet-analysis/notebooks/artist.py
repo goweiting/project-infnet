@@ -7,12 +7,45 @@ rng = RandomState(787351)
 import matplotlib.pyplot as plt
 plt.style.use(['seaborn-poster'])
 import pandas as pd
-from helper import *
+# from helper import *
 
 
 # Global vars
 DATA_DIR = '../../data/data_schoolofinf'
 INSTITUTES = pkl.load(open(os.path.join(DATA_DIR, 'institutes.pkl'), 'rb'))
+
+# DEFINE COLORS
+# inst_by_color = {
+#     0: 'xkcd:silver',
+#     1: 'xkcd:cyan',
+#     2: 'xkcd:magenta',
+#     3: 'xkcd:indigo',
+#     4: 'xkcd:red',
+#     5: 'xkcd:lime',
+#     6: 'xkcd:goldenrod',
+#     7: 'xkcd:azure',
+#     8: 'xkcd:lavender',
+#     9: 'xkcd:grey green',
+#     10: 'xkcd:coral',
+#     11: 'xkcd:khaki',
+#     'others': 'xkcd:claret'
+# }
+
+inst_by_color = {
+    0: '#000000',
+    1: '#0000ff',
+    2: '#00ffff',
+    3: '#00cc00',
+    4: '#ff9900',
+    5: '#ff0000',
+    6: '#F20BCE',
+    7: '#999966',
+    8: '#ccffff',
+    9: '#ffffb3',
+    10: '#e6e6ff',
+    11: '#e6f2ff',
+    'others': '#808080'
+}
 
 
 def color_by_inst(g, lookup_poinf):
@@ -26,7 +59,7 @@ def color_by_inst(g, lookup_poinf):
 
 def add_inst_labels(ax, with_legend=True):
     # Append legend into the axis
-    for label in list(institutes.values()):
+    for label in list(INSTITUTES.values()):
         ax.scatter(
             [0], [0],
             color=inst_by_color[label],
