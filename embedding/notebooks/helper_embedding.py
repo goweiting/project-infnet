@@ -169,7 +169,7 @@ def find_best_threshold(ground_truth_adj_mat,
   when sim_matrix is under binary threshold, it is the most similar to graound_truth_adj_mat
   that is binary.
 
-  The condition used can be changed.
+  The condition used can be changed.git pu
   """
 
   # Initialise the parameters
@@ -250,3 +250,34 @@ def find_best_threshold(ground_truth_adj_mat,
   return _THRESHOLDS, _NUM_EDGES, _AVG_DISTANCES,\
       maximum_edges, best_threshold, lowest_avg_distance,\
       best_epoch_j_dist, best_threshold_j_dist
+
+
+def threshold_plot(thresholds, distances, edges, best_threshold, lowest_edges,
+                   j_dist_best_threshold, lowest_j_distance, ground_truth_adj_mat ):
+    # Plot graphs:
+  fig = plt.figure(figsize=(10, 10))
+  ax = fig.add_subplot(111)
+
+  ax.plot(thresholds, distances, 'b', label='Avg Jaccard Distance')
+  ax.set_xlabel('Thresholds')
+  ax.set_ylabel('Average Jaccard Distance')
+
+  ax2 = ax.twinx()
+  ax2.plot(thresholds, edges, 'r-.',
+                label='Num edges in topic-collab net')
+  ax2.set_ylabel('Total Number of Edges')
+
+  ax2.plot(
+      np.linspace(0, 1., 100),
+      np.repeat(np.sum(ground_truth_adj_mat) / 2, 100),
+      'g:',
+      label='Num edges in collab net')
+
+  ax.scatter(j_dist_best_threshold, lowest_j_distance, facecolors='c',
+                   edgecolors='c', alpha=.2, label='Lowest avg jaccard dist epoch')
+  ax2.scatter(best_threshold, lowest_edges, facecolors='m',
+                    edgecolors='m', alpha=.2, label='Closest epoch to ground-truth')
+
+  fig.legend(loc='upper center')
+  plt.tight_layout()
+  return fig
