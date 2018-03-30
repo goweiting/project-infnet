@@ -98,13 +98,13 @@ def jaccard_dist(x_true, x, theta):
   Theta is represents the threshold parameter to filter x by.
   If given, any values in x < theta will be set to 0
   """
-  _x = np.array(x)
-  idx = _x < theta
+  x = np.array(x)
+  idx = x < theta
 
-  _x[idx] = False
-  _x[~idx] = True
+  x[idx] = False
+  x[~idx] = True
   num_edges = np.sum(x, dtype=int) # CountEdges
-  j_dist = jaccard(x_true, _x) # calculates the local jaccard distance
+  j_dist = jaccard(x_true, x) # calculates the local jaccard distance
   return j_dist , num_edges
 
 
@@ -165,7 +165,7 @@ def find_best_threshold(ground_truth_adj_mat,
 
   epoch = 0
   maximum_edges = 0
-  ground_truth_sum = np.sum(ground_truth_adj_mat)
+  ground_truth_sum = np.sum(ground_truth_adj_mat)//2
   threshold = start_threshold
   best_threshold = 0.
   best_epoch = 0
@@ -194,7 +194,7 @@ def find_best_threshold(ground_truth_adj_mat,
 
     # calculate the mean for a given threshold
     average_dist = np.mean(distances)
-    _NUM_EDGES.append(num_edges)
+    _NUM_EDGES.append(num_edges//2)
     _THRESHOLDS.append(threshold)
     _AVG_DISTANCES.append(average_dist)
 
