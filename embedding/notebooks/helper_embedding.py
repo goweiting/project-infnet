@@ -149,6 +149,7 @@ def find_best_threshold(ground_truth_adj_mat,
   Args:
     ground_truth_adj_mat: the collaboration graph represent in adjacency matrix
     sim_matrix: the cosine similarity matrix derived from compare_researchers
+    binary_edges: Set to False if the ground_truth_adj_mat is not binary (default: {True})
     start_threshold: Threshold to begin the iterative process with; every step increases the threshold
                      (default: {0.005})
     step_size: increment per iteration (default: {0.001})
@@ -166,7 +167,11 @@ def find_best_threshold(ground_truth_adj_mat,
 
   epoch = 0
   maximum_edges = 0
-  ground_truth_sum = np.sum(ground_truth_adj_mat) // 2
+  if binary_edges:
+    ground_truth_sum = np.sum(ground_truth_adj_mat) // 2
+  else:
+    min_weight = np.min(ground_truth_adj_mat)
+    ground_truth_sum = np.sum(ground_truth_adj_mat>=min_weight) // 2
   threshold = start_threshold
   best_threshold = 0.
   best_epoch = 0
@@ -203,19 +208,13 @@ def find_best_threshold(ground_truth_adj_mat,
       logging.info(("epoch {}: threshold: {:.3f} avg_dist: {:.3f} num_edges: {}".
                     format(epoch, threshold, average_dist, num_edges)))
 
-    # check if the best epoch is seen
-    #         if (average_dist < lowest_avg_distance):
-    #             best_epoch = epoch
-    #             lowest_avg_distance = average_dist
-    #             best_threshold = threshold
-
     if (num_edges >= ground_truth_sum):
-      # if (num_edges < ground_truth_sum):
       best_epoch = epoch
       best_threshold = threshold
       maximum_edges = num_edges
 
     if average_dist < lowest_avg_distance:
+      # Additionally, record the local average jaccard distance
       best_epoch_j_dist = epoch
       best_threshold_j_dist = threshold
       lowest_avg_distance = average_dist
