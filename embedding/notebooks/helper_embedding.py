@@ -144,17 +144,16 @@ def binom_choose(n, k):
 
 
 def set_edges(matrix, threshold, binary=True):
-
   _matrix = np.zeros_like(matrix, dtype=np.int32)
 
-  w, h = np.array(matrix).shape
+  w, h = np.shape(matrix)
+  logging.info('dimension: {}, {}'.format(w,h))
   for i in range(w):
     for j in range(h):
       if binary:
         _matrix[i][j] = 1 if matrix[i][j] > threshold else 0.
       else:
         _matrix[i][j] = matrix[i][j] if matrix[i][j] > threshold else 0.
-
   return _matrix
 
 
