@@ -54,7 +54,8 @@ def gen_toks(pub_ids, df_toks):
   # Only use publications that are in df_toks
   _indices = set(df_toks.index)
   pub_ids = pub_ids.intersection(_indices)
-  _df = df_toks.loc[list(pub_ids)]  # slice the tokens to get publications in pub_ids
+  # slice the tokens to get publications in pub_ids
+  _df = df_toks.loc[list(pub_ids)]
   out = []
   for a in _df.toks_metada.tolist():  # convert reduce the list of list
     out += a
@@ -86,7 +87,8 @@ def compare_researchers(list_of_probs, n_topics):
       assert all(i >= 0 for i in b)
       dist = cosine(a, b)
       # assert dist <= 1. and dist >= 0., "negative distance {}?, a:{}, b:{}".format(dist, a,b)
-      sim_matrix[i][j] = 1. - dist  # cosine(a,b) outputs the distance (see scipy.spatial.distance)
+      # cosine(a,b) outputs the distance (see scipy.spatial.distance)
+      sim_matrix[i][j] = 1. - dist
     sim_matrix[i][i] = 0.
   return sim_matrix
 
@@ -103,10 +105,9 @@ def jaccard_dist(x_true, x, theta):
 
   x[idx] = False
   x[~idx] = True
-  num_edges = np.sum(x, dtype=int) # CountEdges
-  j_dist = jaccard(x_true, x) # calculates the local jaccard distance
-  return j_dist , num_edges
-
+  num_edges = np.sum(x, dtype=int)  # CountEdges
+  j_dist = jaccard(x_true, x)  # calculates the local jaccard distance
+  return j_dist, num_edges
 
 
 def binom_choose(n, k):
@@ -165,7 +166,7 @@ def find_best_threshold(ground_truth_adj_mat,
 
   epoch = 0
   maximum_edges = 0
-  ground_truth_sum = np.sum(ground_truth_adj_mat)//2
+  ground_truth_sum = np.sum(ground_truth_adj_mat) // 2
   threshold = start_threshold
   best_threshold = 0.
   best_epoch = 0
@@ -191,10 +192,10 @@ def find_best_threshold(ground_truth_adj_mat,
       distances[i] = j_dist
       num_edges += num_edge
       i += 1
-
+    num_edges = num_edges // 2
     # calculate the mean for a given threshold
     average_dist = np.mean(distances)
-    _NUM_EDGES.append(num_edges//2)
+    _NUM_EDGES.append(num_edges)
     _THRESHOLDS.append(threshold)
     _AVG_DISTANCES.append(average_dist)
 
