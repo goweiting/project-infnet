@@ -120,16 +120,21 @@ def binom_choose(n, k):
 
 
 def set_edges(matrix, threshold, binary=True):
-  _matrix = np.zeros_like(matrix, dtype=np.int32)
-
+  
   w, h = np.shape(matrix)
   logging.info('dimension: {}, {}'.format(w, h))
-  for i in range(w):
-    for j in range(h):
-      if binary:
-        _matrix[i][j] = 1 if matrix[i][j] > threshold else 0.
-      else:
-        _matrix[i][j] = matrix[i][j] if matrix[i][j] > threshold else 0.
+  if binary:
+    _matrix = np.zeros_like(matrix, dtype=np.int32)
+    _matrix[matrix > threshold] = 1
+  else:
+    _matrix = matrix
+    _matrix[matrix <= threshold] =0
+#   for i in range(w):
+#     for j in range(h):
+#       if binary:
+#         _matrix[i][j] = 1 if matrix[i][j] > threshold else 0.
+#       else:
+#         _matrix[i][j] = matrix[i][j] if matrix[i][j] > threshold else 0.
   return _matrix
 
 
@@ -170,8 +175,10 @@ def find_best_threshold(ground_truth_adj_mat,
   if binary_edges:
     ground_truth_sum = np.sum(ground_truth_adj_mat) // 2
   else:
-    min_weight = np.min(ground_truth_adj_mat)
-    ground_truth_sum = np.sum(ground_truth_adj_mat>=min_weight) // 2
+    min_weight = np.min(ground_truth_adj_mat[ground_truth_adj_mat>0]) # get the minimum; larger than 0
+    ground_truth_sum = np.sum(ground_truth_adj_mat >= min_weight) // 2
+  logging.info('Number of ground_truth_edges: {}'.format(ground_truth_sum))
+  logging.info('binary edges: {}'.format(binary_edges))
   threshold = start_threshold
   best_threshold = 0.
   best_epoch = 0
