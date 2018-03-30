@@ -148,8 +148,8 @@ def set_edges(matrix, threshold, binary=True):
   _matrix = np.zeros_like(matrix, dtype=np.int32)
 
   w, h = np.array(matrix).shape
-  for i in w:
-    for j in h:
+  for i in range(w):
+    for j in range(h):
       if binary:
         _matrix[i][j] = 1 if matrix[i][j] > threshold else 0.
       else:
