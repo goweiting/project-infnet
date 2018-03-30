@@ -32,32 +32,6 @@ warnings.filterwarnings('ignore')
 DATA_DIR = '../../data/data_schoolofinf/'
 
 
-def prepare_toks(top=1997, bottom=2017):
-  """Constraint the tokens tokens with the [top,bottom]
-  """
-  # Tokens from collection
-  lookup_combined_toks = pd.read_pickle(
-      os.path.join(DATA_DIR, 'toks', 'toks.combined.pkl'))
-  lookup_combined_toks.drop(
-      lookup_combined_toks[(lookup_combined_toks.year < top)
-                           | (lookup_combined_toks.year > bottom)].index,
-      inplace=True)
-  lookup_combined_toks[
-      'toks_pdf2txt'] = lookup_combined_toks.toks_pdf2txt.apply(
-          lambda x: [] if not len(x) else x)
-  lookup_combined_toks[
-      'toks_metada'] = lookup_combined_toks.toks_metada.apply(
-          lambda x: [] if not len(x) else x)
-
-  return lookup_combined_toks
-
-
-def get_poinf_pub_mapping():
-  df_pubmapping = pd.read_pickle(
-      os.path.join(DATA_DIR, 'poinf_to_pub_mapping.pkl'))
-  return df_pubmapping
-
-
 def _to_list(l, target_length):
   """
   List of tuples...
@@ -254,7 +228,7 @@ def find_best_threshold(ground_truth_adj_mat,
 def threshold_plot(thresholds, distances, edges, best_threshold, lowest_edges,
                    j_dist_best_threshold, lowest_j_distance, ground_truth_adj_mat ):
     # Plot graphs:
-  fig = plt.figure(figsize=(10, 10))
+  fig = plt.figure(figsize=(8, 8))
   ax = fig.add_subplot(111)
 
   ax.plot(thresholds, distances, 'b', label='Avg Jaccard Distance')
@@ -273,9 +247,9 @@ def threshold_plot(thresholds, distances, edges, best_threshold, lowest_edges,
       label='Num edges in collab net')
 
   ax.scatter(j_dist_best_threshold, lowest_j_distance, facecolors='c',
-                   edgecolors='c', alpha=.4, label='Lowest avg jaccard dist epoch')
+                   edgecolors='c', alpha=.4, label='Best threshold (avg jaccard dist)')
   ax2.scatter(best_threshold, lowest_edges, facecolors='m',
-                    edgecolors='m', alpha=.4, label='Closest epoch to collab net')
+                    edgecolors='m', alpha=.4, label='Best threshold (number of edges)')
 
   fig.legend(loc='upper right',bbox_to_anchor=(.8,.89))
   plt.tight_layout()
