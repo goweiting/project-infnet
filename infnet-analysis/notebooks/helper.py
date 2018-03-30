@@ -51,19 +51,23 @@ def avg_degree_dist(degree_seq):
     # print(expected)
     return expected
 
+
 def power_law_fit(degree_seq):
 
-    fit = powerlaw.Fit(degree_seq, discrete=True, xmin=0.) # Fit the data
-    fig = fit.plot_ccdf(color='b', linewidth=2, label='Empirical ccdf') # plot the data
-    fit.power_law.plot_ccdf(linestyle='--', color='b', linewidth=2, label='Power Law Fit', ax=fig) #plot the data
+    fit = powerlaw.Fit(degree_seq, discrete=True, xmin=0.)  # Fit the data
+    fig = fit.plot_ccdf(color='b', linewidth=2,
+                        label='Empirical ccdf')  # plot the data
+    fit.power_law.plot_ccdf(linestyle='--', color='b', linewidth=2,
+                            label='Power Law Fit', ax=fig)  # plot the data
     alpha = fit.power_law.alpha
-    
+
     fig.set_ylabel(r'$F(d) =P(D_{v} \geq d)$')
     fig.set_xlabel('d')
     fig.legend(loc='best')
     #     fig.set_title(r'Power law fit: $F(d) = (\frac{d}{d_{min}})^{-(\alpha-1)}$')
     fig.set_title(r'Power law fit ($\alpha=${:.2f})'.format(alpha))
     return fig
+
 
 def degree_dist(G, show=True):
     """
@@ -97,6 +101,7 @@ def generateGCC(G):
         print('component {}: {:.2%}'.format(i, percent))
     return gccs, percentage
 
+
 def clustering_coeff(G):
     c_coeff = nx.clustering(G)
     avg_c = np.mean(list(c_coeff.values()))
@@ -106,7 +111,7 @@ def clustering_coeff(G):
 def centrality_measure(G):
     nodes_centrallity = nx.degree_centrality(G)
 
-    
+
 def partitions(nodes, n):
     "Partitions the nodes into n subsets"
     nodes_iter = iter(nodes)
@@ -115,6 +120,7 @@ def partitions(nodes, n):
         if not partition:
             return
         yield partition
+
 
 def btwn_pool(G_tuple):
     return nx.betweenness_centrality_source(*G_tuple)
@@ -130,20 +136,51 @@ def between_parallel(G, processes=None):
     node_partitions = list(partitions(G.nodes(), int(len(G) / part_generator)))
     num_partitions = len(node_partitions)
 
-    #Next, we pass each processor a copy of the entire network and
-    #compute #the betweenness centrality for each vertex assigned to the
-    #processor.
+    # Next, we pass each processor a copy of the entire network and
+    # compute #the betweenness centrality for each vertex assigned to the
+    # processor.
 
     bet_map = p.map(btwn_pool,
                     zip([G] * num_partitions, [True] * num_partitions,
                         [None] * num_partitions, node_partitions))
 
-    #Finally, we collect the betweenness centrality calculations from each
-    #pool and aggregate them together to compute the overall betweenness
-    #centrality score for each vertex in the network.
+    # Finally, we collect the betweenness centrality calculations from each
+    # pool and aggregate them together to compute the overall betweenness
+    # centrality score for each vertex in the network.
 
     bt_c = bet_map[0]
     for bt in bet_map[1:]:
         for n in bt:
             bt_c[n] += bt[n]
     return bt_c
+
+
+def adj_mat_to_graph(matrix, order, weighted=False):
+    """Convert adjacency matrix to edgelist for use in nx
+
+    Args:
+        matrix: adjacency matrix
+        order: The order of appearance of nodes
+        weighted: if matrix is binary - simple graph/network or weights
+    """
+    _, h = np.shape(matrix)
+    diag = np.diagonal(matrix)
+    assert np.allclose(matrix.T, matrix, atol=1e-8), "matrix is NOT symmetric!"
+    assert np.sum(diag) == 0, "non-zero diagonal matrix detected!"
+
+    # only consider the upper triangle; above the diagonal zero
+    matrix = np.triu(matrix)
+    assert h == len(order),\
+        "Number of individuals in matrix and order does not match; got: matrix = {}, order = {}".froamt(
+            h, len(order))
+
+    g = nx.Graph()
+
+    for i, node_1 in enumerate(order):
+        for w in range(h):
+            # Only add edges that exists:
+            if matrix[i][w] > 0:
+                node_2 = order[w]
+                assert node_2 != node_1, "self-loop detected"
+                g.add_edge(node_1, node_2, weight=matrix[i][w])
+    return g
