@@ -120,7 +120,7 @@ def binom_choose(n, k):
 
 
 def set_edges(matrix, threshold, binary=True):
-  
+
   w, h = np.shape(matrix)
   logging.info('dimension: {}, {}'.format(w, h))
   if binary:
@@ -128,7 +128,7 @@ def set_edges(matrix, threshold, binary=True):
     _matrix[matrix > threshold] = 1
   else:
     _matrix = matrix
-    _matrix[matrix <= threshold] =0
+    _matrix[matrix <= threshold] = 0
 #   for i in range(w):
 #     for j in range(h):
 #       if binary:
@@ -175,7 +175,8 @@ def find_best_threshold(ground_truth_adj_mat,
   if binary_edges:
     ground_truth_sum = np.sum(ground_truth_adj_mat) // 2
   else:
-    min_weight = np.min(ground_truth_adj_mat[ground_truth_adj_mat>0]) # get the minimum; larger than 0
+    # get the minimum; larger than 0
+    min_weight = np.min(ground_truth_adj_mat[ground_truth_adj_mat > 0])
     ground_truth_sum = np.sum(ground_truth_adj_mat >= min_weight) // 2
   logging.info('Number of ground_truth_edges: {}'.format(ground_truth_sum))
   logging.info('binary edges: {}'.format(binary_edges))
@@ -243,31 +244,76 @@ def find_best_threshold(ground_truth_adj_mat,
 
 
 def threshold_plot(thresholds, distances, edges, best_threshold, lowest_edges,
-                   j_dist_best_threshold, lowest_j_distance, ground_truth_adj_mat):
+                   j_dist_best_threshold, lowest_j_distance,
+                   ground_truth_num_edges, cosim):
     # Plot graphs:
-  fig = plt.figure(figsize=(8, 8))
-  ax = fig.add_subplot(111)
+  fig = plt.figure(figsize=(8, 9))
+  ax = fig.add_subplot(211)
 
-  ax.plot(thresholds, distances, 'b', label='Avg Jaccard Distance')
-  ax.set_xlabel('Thresholds')
-  ax.set_ylabel('Average Jaccard Distance')
+  ax.plot(
+      thresholds, edges, 'g-', label='Num edges in topic-collab net')
+  ax.scatter(
+      best_threshold,
+      lowest_edges,
+      facecolors='m',
+      edgecolors='m',
+      alpha=.4,
+      label='Best threshold (number of edges)')
+  ax.plot(
+      np.linspace(0, 1., 100),
+      np.repeat(ground_truth_num_edges, 100),
+      'r:',
+      dashes=(5, 10), alpha=.5,
+      label='Num edges in collab net')
+  ax.set_yscale('log')
+  ax.set_ylabel('Number of Edges')
+  ax.yaxis.label.set_color('g')
+  ax.xaxis.set_label_position('top')
+  ax.set_xlabel('Threshold, $\epsilon$')
+  ax.xaxis.tick_top()
+  ax.set_xticklabels(thresholds, minor=True)
 
   ax2 = ax.twinx()
-  ax2.plot(thresholds, edges, 'r-.',
-           label='Num edges in topic-collab net')
-  ax2.set_ylabel('Total Number of Edges')
+  ax2.plot(thresholds, distances, 'b-.', label='Avg Jaccard Distance')
+  ax2.scatter(
+      j_dist_best_threshold,
+      lowest_j_distance,
+      facecolors='c',
+      edgecolors='c',
+      alpha=.4,
+      label='Best threshold (avg jaccard dist)')
+  ax2.yaxis.label.set_color('b')
+  ax2.set_ylabel('Average jaccard distance')
 
-  ax2.plot(
-      np.linspace(0, 1., 100),
-      np.repeat(np.sum(ground_truth_adj_mat) / 2, 100),
-      'g:',
-      label='Num edges in collab net')
+  ax3 = fig.add_subplot(212, sharex=ax2)
+  dist = np.triu(cosim)
+  dist = np.ravel(dist[dist > 0])
+  sns.distplot(
+      dist, hist=True, ax=ax3, label='Cosine similarity btw researchers',
+      color="k")
+  ax3.set_xlabel('Cosine Similarity')
+  ax3.set_ylabel('Number of researchers')
+  ax3.plot(
+      np.repeat(best_threshold, 10),
+      np.linspace(0, 6, num=10),
+      'm--',
+      dashes=(5, 10),
+      alpha=.4)
+  ax3.plot(
+      np.repeat(j_dist_best_threshold, 10),
+      np.linspace(0, 6, num=10),
+      'c--',
+      dashes=(5, 10),
+      alpha=.4)
 
-  ax.scatter(j_dist_best_threshold, lowest_j_distance, facecolors='c',
-             edgecolors='c', alpha=.4, label='Best threshold (avg jaccard dist)')
-  ax2.scatter(best_threshold, lowest_edges, facecolors='m',
-              edgecolors='m', alpha=.4, label='Best threshold (number of edges)')
+  h1, l1 = ax.get_legend_handles_labels()
+  h2, l2 = ax2.get_legend_handles_labels()
+  h3, l3 = ax3.get_legend_handles_labels()
 
-  fig.legend(loc='upper right', bbox_to_anchor=(.8, .89))
+  lns = h1 + h2 + h3
+  labels = [l.get_label() for l in lns]
+
+  ax3.legend(lns, labels, loc=0)
   plt.tight_layout()
+  plt.subplots_adjust(hspace=0)
   return fig
