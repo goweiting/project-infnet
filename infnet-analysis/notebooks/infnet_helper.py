@@ -13,7 +13,19 @@ from multiprocessing import Pool
 import itertools
 import powerlaw
 
+
+## GLOBAL VARIABLES THAT SHOULD BE CONSISTENT
 DATA_DIR = '../../data/data_schoolofinf'
+INST = [
+    "institute for adaptive and neural computation",
+    "institute for computing systems architecture",
+    "institute of language cognition and computation",
+    "institute of perception action and behaviour",
+    "laboratory for foundations of computer science",
+    "centre for intelligent systems and their applications",
+    "neuroinformatics dtc"
+]
+NUM_INST = 10
 
 
 def get_institute():
@@ -21,33 +33,40 @@ def get_institute():
 
 
 def get_lookup_poinf():
-    return pd.read_pickle(os.path.join(DATA_DIR, 'lookup_poinf_w_yr.pkl'))
+    return pd.read_pickle(os.path.join(DATA_DIR, 'lookup_poinf.pkl'))
 
 
-def prepare_toks(top=1997, bottom=2017):
+def prepare_toks(top=1997, bottom=2017, with_pdf2txt=False):
     """Constraint the tokens tokens with the [top,bottom]
+    
+    Set with_pdf2txt to true if pdf tokens should be included; else ignore.
     """
-    # Tokens from collection
-    lookup_combined_toks = pd.read_pickle(
-        os.path.join(DATA_DIR, 'toks', 'toks.combined.pkl'))
-    lookup_combined_toks.drop(
-        lookup_combined_toks[(lookup_combined_toks.year < top)
-                             | (lookup_combined_toks.year > bottom)].index,
+    if with_pdf2txt:
+        df = pd.read_pickle(os.path.join(DATA_DIR, 'toks', 'toks.combined.pkl'))
+    else:
+        df = pd.read_pickle(os.path.join(DATA_DIR, 'toks', 'toks.metadata.pkl'))
+    
+    # remove tokens outside of period limit:
+    df.drop(
+        df[(df.year < top) | (df.year > bottom)].index,
         inplace=True)
-    lookup_combined_toks[
-        'toks_pdf2txt'] = lookup_combined_toks.toks_pdf2txt.apply(
-            lambda x: [] if not len(x) else x)
-    lookup_combined_toks[
-        'toks_metada'] = lookup_combined_toks.toks_metada.apply(
-            lambda x: [] if not len(x) else x)
-
-    return lookup_combined_toks
+    if with_pdf2txt:
+        df['toks_pdf2txt'] = df.toks_pdf2txt.apply(lambda x: [] if not len(x) else x)
+    df['toks_metada'] = df.toks_metada.apply(lambda x: [] if not len(x) else x)
+    
+    return df
 
 
 def get_poinf_pub_mapping():
-    df_pubmapping = pd.read_pickle(
-        os.path.join(DATA_DIR, 'poinf_to_pub_mapping.pkl'))
-    return df_pubmapping
+    """
+    poinf2pub mapping dataframe:
+        index : id of researchers informatics
+        pub_ids: (type:set) of publication ids that researcher participated in
+    if poinf_id is not in the index, no publications 
+        (using the native dataset, amounts to 64 individuals)
+    """
+    return pd.read_pickle(os.path.join(DATA_DIR, 'poinf2pub.df.pkl'))
+    
 
 
 def avg_degree_dist(degree_seq):

@@ -1,3 +1,7 @@
+"""
+infnet-analysis/notebooks/artist.py
+"""
+
 import os
 import pickle as pkl
 import networkx as nx
