@@ -179,7 +179,7 @@ def adj_mat_to_graph(matrix, order, weighted=False):
     # only consider the upper triangle; above the diagonal zero
     matrix = np.triu(matrix)
     assert h == len(order),\
-        "Number of individuals in matrix and order does not match; got: matrix = {}, order = {}".froamt(
+        "Number of individuals in matrix and order does not match; got: matrix = {}, order = {}".format(
             h, len(order))
 
     g = nx.Graph()
