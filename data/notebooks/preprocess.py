@@ -10,7 +10,7 @@ $ python
 
 # Packages for standard Pre-processing:
 import string
-from nltk.corpus import stopwords # Common stopwords 
+from nltk.corpus import stopwords # Common stopwords
 from nltk.tokenize import RegexpTokenizer
 from nltk.stem.wordnet import WordNetLemmatizer
 
@@ -34,3 +34,14 @@ lemmatizer = WordNetLemmatizer()
 lemmify = lambda x : [lemmatizer.lemmatize(t) for t in x]
 
 preprocess = lambda x: lemmify(removeSW(tokenize(x)))
+
+
+def fix_date(x):
+    if len(str(x)) > 4:
+        yr = int(x[-2:])
+        if yr >= 50:
+            return 1900 + yr
+        else:
+            return 2000 + yr
+    else:
+        return int(x)
