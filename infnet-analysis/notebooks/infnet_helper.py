@@ -31,8 +31,10 @@ NUM_INST = 10
 def get_institute():
     return pkl.load(open(os.path.join(DATA_DIR, 'institutes.pkl'), 'rb'))
 
-def get_lookup_pub():
-    return pd.read_pickle(os.path.join(DATA_DIR,'lookup_pub.pkl'))
+def get_lookup_pub(top=1997, bottom=2017):
+    df = pd.read_pickle(os.path.join(DATA_DIR,'lookup_pub.pkl'))
+    df.drop(df[(df.year <top) | (df.year>bottom)].index,inplace=True)
+    return df
 
 def get_lookup_poinf():
     return pd.read_pickle(os.path.join(DATA_DIR, 'lookup_poinf.pkl'))

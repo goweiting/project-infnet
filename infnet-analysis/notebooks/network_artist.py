@@ -62,9 +62,11 @@ inst_by_color = {
 def color_by_inst(g, lookup_poinf):
     # light up the nodes based on the institutes they belong to:
     node_color = []
+    poinf = lookup_poinf.index.tolist()
     for node in g:
-        node_color.append(inst_by_color[int(
-            lookup_poinf.institute_class.loc[[str(node)]])])
+        if node in poinf:
+            node_color.append(inst_by_color[int(
+                lookup_poinf.institute_class.loc[[str(node)]])])
     return node_color
 
 
@@ -185,7 +187,7 @@ def draw_default_layout(g,
     # plt.tight_layout()
 
 
-def get_default_nlist(lookup_poinf, as_dict=False):
+def get_default_nlist(g, lookup_poinf, as_dict=False):
     """
     Group individuals according to their institute
     Returns a dictionary with key = 1 to 7, representing the institutes
@@ -194,7 +196,7 @@ def get_default_nlist(lookup_poinf, as_dict=False):
 
     nlist = {}
     for k, gb in lookup_poinf.groupby('institute_class'):
-        nlist[k] = gb.index.tolist()
+        nlist[k] = [a for a in  gb.index.tolist() if a in list(g.nodes)]
     # Put Non-official classes as one list - 'others':
     in_school = [i for i in range(1, 8)]
     nlist_merged = {'others': []}
