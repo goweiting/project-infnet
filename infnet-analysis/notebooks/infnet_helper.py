@@ -3,6 +3,7 @@ A collection of useful functions!
 """
 import os
 import networkx as nx
+import community
 import numpy as np
 import pandas as pd
 import pickle as pkl
@@ -12,6 +13,9 @@ plt.style.use('seaborn-poster')
 from multiprocessing import Pool
 import itertools
 import powerlaw
+import logging
+logging.basicConfig(
+    format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
 
 ## GLOBAL VARIABLES THAT SHOULD BE CONSISTENT
@@ -258,3 +262,50 @@ def create_adj_mat(g, order, draw=False, use_order=True, weighted=False):
             tick.label.set_fontsize(5)
 
     return adj_mat, fig, order
+
+def convert_to_dict(tuple_of_partition):
+    ret = {}
+    idx=1
+    for community in tuple_of_partition:
+        for _id in community:
+            ret[_id] = idx
+        idx+=1
+    return ret
+
+
+def get_best_gnalgo(g):
+    comm = nx.community.girvan_newman(g)
+    states=[]
+    scores = []
+    best_score = 0    
+    best_partition = None
+    # starting state:
+    _g = g
+    org_g = g
+    for partition in comm:
+        _partition = convert_to_dict(partition)
+        _score = community.modularity(_partition, _g) 
+        # compute score based on previous induced graph
+        states.append(_partition)
+        scores.append(_score)
+        
+        if _score > best_score:
+            best_score = _score
+            best_partition = _partition
+            logging.info('best_score: {:.3f}'.format(best_score))
+        
+    return best_partition, best_score
+
+def inverse_partition(partition_dict):
+    ret = {}
+    for i in sorted(list(set(partition_dict.values()))):
+        ret[i] = [a for (a, b) in partition_dict.items() if b == i]
+    return ret
+
+
+def create_community_graph(partition, g):
+    graphs = []
+    for comm_id in sorted(list(set(partition.values()))):
+        lookup = inverse_partition(partition)
+        graphs.append(g.subgraph(lookup[comm_id]))
+    return nx.compose_all(graphs)

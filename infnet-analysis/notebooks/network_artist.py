@@ -7,6 +7,7 @@ import pickle as pkl
 import networkx as nx
 # random_state for networkX only for python3.6
 from numpy.random import RandomState
+import seaborn as sns
 rng = RandomState(787351)
 import matplotlib.pyplot as plt
 plt.style.use(['seaborn-poster'])
@@ -70,6 +71,12 @@ def color_by_inst(g, lookup_poinf):
     return node_color
 
 
+def color_by_comm(partition_dict, order):
+    c = sns.color_palette('Paired', n_colors=max(partition_dict.values()))
+    ret = dict((a,c[b-1]) for (a,b) in partition_dict.items())
+    return [ret[i] for i in order]
+
+
 def add_inst_labels(ax, with_legend=True):
     # Append legend into the axis
     for label in list(INSTITUTES.values()):
@@ -100,8 +107,8 @@ def draw_default_layout(g,
     # id of nodes in that institute; basically separated the individuals into
     # institutes (for shell layout)
 
-    _nlist = get_default_nlist(lookup_poinf, as_dict=False)
-    nlist_merged = get_default_nlist(lookup_poinf, as_dict=True)
+    _nlist = get_default_nlist(g,lookup_poinf, as_dict=False)
+    nlist_merged = get_default_nlist(g,lookup_poinf, as_dict=True)
 
     # Cross institute collaboration
     edges = []
@@ -226,7 +233,7 @@ def draw_circular_layout(g,
     logging.info('SAVE_GRAPHS: {}'.format(SAVE_GRAPHS))
     
     # generate pos
-    nlist = get_default_nlist(lookup_poinf)
+    nlist = get_default_nlist(g,lookup_poinf)
     _nlist = []
     for x in nlist:
         _nlist.extend(x)
