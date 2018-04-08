@@ -49,7 +49,7 @@ inst_by_color = {
     6: '#F20BCE',
     7: '#999966',
     8: '#ccffff',
-    9: '#ffffb3',
+    9: '#ffffb3', # ppls yellow
     10: '#e6e6ff',
     11: '#e6f2ff',
     'others': '#808080'
@@ -72,8 +72,10 @@ def color_by_inst(g, lookup_poinf):
 
 
 def color_by_comm(partition_dict, order):
-    c = sns.color_palette('Paired', n_colors=max(partition_dict.values()))
-    ret = dict((a,c[b-1]) for (a,b) in partition_dict.items())
+    _max = max(partition_dict.values())
+    _min = min(partition_dict.values())
+    c = sns.color_palette('Paired', n_colors=_max-_min+1)
+    ret = dict((a,c[b-_min]) for (a,b) in partition_dict.items())
     return [ret[i] for i in order]
 
 
@@ -82,12 +84,13 @@ def add_inst_labels(ax, with_legend=True):
     for label in list(INSTITUTES.values()):
         ax.scatter(
             [0], [0],
+            s=80,
             color=inst_by_color[label],
             label=[
                 name for (name, _k) in list(INSTITUTES.items()) if _k == label
             ][0])
     plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-    ax.scatter([0], [0], color='white', s=100, edgecolors='none')
+    ax.scatter([0], [0], color='white', s=100, edgecolors='white')
     return ax
 
 

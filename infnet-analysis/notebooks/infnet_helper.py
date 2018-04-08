@@ -305,7 +305,7 @@ def inverse_partition(partition_dict):
 
 def create_community_graph(partition, g):
     graphs = []
+    lookup = inverse_partition(partition)
     for comm_id in sorted(list(set(partition.values()))):
-        lookup = inverse_partition(partition)
         graphs.append(g.subgraph(lookup[comm_id]))
     return nx.compose_all(graphs)
