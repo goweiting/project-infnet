@@ -178,6 +178,7 @@ def find_best_threshold(ground_truth_adj_mat,
     # get the minimum; larger than 0
     min_weight = np.min(ground_truth_adj_mat[ground_truth_adj_mat > 0])
     ground_truth_sum = np.sum(ground_truth_adj_mat >= min_weight) // 2
+    logging.info('min weight: {}'.format(min_weight))
   logging.info('Number of ground_truth_edges: {}'.format(ground_truth_sum))
   logging.info('binary edges: {}'.format(binary_edges))
   threshold = start_threshold
@@ -199,7 +200,7 @@ def find_best_threshold(ground_truth_adj_mat,
 
     for x_true, x in zip(ground_truth_adj_mat, sim_matrix):
       # calculate local statistics for each node
-      # its convered in jaccard_dist because we calculate the jaccard distance
+      # its covered in jaccard_dist because we calculate the jaccard distance
       # between each individual too.
       j_dist, num_edge = jaccard_dist(x_true, x, theta=threshold)
       distances[i] = j_dist
