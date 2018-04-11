@@ -49,6 +49,9 @@ if __name__ == "__main__":
       os.path.join(DATA_DIR, 'poinf_collabgraph_1997-2017.txt'),
       sep='\n',
       names=['id'])
+  # load collaboration graph adjacency matrix
+  ground_truth_adj_mat = np.load(os.path.join(
+      DATA_DIR, 'mat', 'infnet20yrs-adj-mat.pkl'))
 
   # Combine all tokens:
   topicnet20yr = infnet20yr.join(
@@ -64,10 +67,7 @@ if __name__ == "__main__":
   cosim = compare_researchers(
       topicnet20yr.tm20yr_probs.tolist(), tmfull_meta.num_topics)
 
-  # load collaboration graph adjacency matrix
-  ground_truth_adj_mat = np.load(os.path.join(
-      DATA_DIR, 'mat', 'infnet20yrs-adj-mat.pkl'))
-
+# Optimisation step
   thresholds, edges, distances, closest_edges, best_threshold, lowest_avg_distance, best_j_dist_epoch, best_threshold_j_dist = \
       find_best_threshold(ground_truth_adj_mat, cosim,
                           num_iter=10000000, step_size=0.001)
