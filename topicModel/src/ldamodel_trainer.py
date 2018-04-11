@@ -1,3 +1,8 @@
+"""
+individual files call ldamodel_trainer to generate each model;
+functions defined in this file is generic
+"""
+
 import csv
 import logging
 logging.basicConfig(
@@ -18,12 +23,13 @@ update_every = 2000  # Batch learning
 eval_every = 2000
 rng = RandomState(93748573)
 
+
 def find_topics(num_topics, corpus, texts, dictionary, store_dir):
   """
   Given a list topics, compute the coherence score for each and output the best LDA model.
   """
   coherence_scores = []
-  __ = dictionary[0]
+  __ = dictionary[0] # temporary load the dictionary into memory so that id2token is available
   id2word = dictionary.id2token
   for num_topic in num_topics:
     print(('TRAINING LDA with {} topics'.format(num_topic)))
@@ -42,7 +48,7 @@ def find_topics(num_topics, corpus, texts, dictionary, store_dir):
 
     coherence_scores.append(
         {'num_topic': num_topic, 'c_v': score_cv, 'u_mass': score_umass})
-    ldamodel.save('{}/ldamodel_nb_topics_{}'.format(store_dir,num_topic))
+    ldamodel.save('{}/ldamodel_nb_topics_{}'.format(store_dir, num_topic))
   return(coherence_scores)
 
 

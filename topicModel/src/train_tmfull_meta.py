@@ -17,10 +17,13 @@ if __name__ == '__main__':
   # Import the dataset:
   df_combined_toks = pd.read_pickle(
       os.path.join(DATA_DIR, 'toks', 'toks.combined.pkl'))
+  # filter publications
   df_combined_toks = df_combined_toks.drop(df_combined_toks[(
       df_combined_toks.year < 1997) | (df_combined_toks.year > 2017)].index)
+  # only use the metadata
   df_combined_toks['toks_metada'] = df_combined_toks.toks_metada.apply(
       lambda x: [] if not len(x) else x)
+  # load dictionary required to convert tokens to idx
   dict_meta = Dictionary.load(os.path.join(
       DATA_DIR, 'corpora', 'dictionary.meta'))
   df_metadata = df_combined_toks[['year', 'toks_metada']]

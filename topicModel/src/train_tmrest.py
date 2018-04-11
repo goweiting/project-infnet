@@ -17,16 +17,19 @@ if __name__ == '__main__':
   # Import the dataset:
   df_combined_toks = pd.read_pickle(
       os.path.join(DATA_DIR, 'toks', 'toks.combined.pkl'))
+  # Filter publications
   df_less_all = df_combined_toks.drop(
       df_combined_toks[(df_combined_toks.year < 2012)
                        | (df_combined_toks.year > 2017)].index)
+  # use both metadata and tokens from pdf
   df_less_all['toks_pdf2txt'] = df_less_all.toks_pdf2txt.apply(
       lambda x: [] if not len(x) else x)
   df_less_all['toks_metada'] = df_less_all.toks_metada.apply(
       lambda x: [] if not len(x) else x)
+  # concatenate both pdf and metadata
   df_less_all['concat_toks'] = df_less_all.apply(
       lambda row: row.toks_metada + row.toks_pdf2txt, axis=1)
-
+  # load the dictionary required to convert tokens to index
   dict_restricted = Dictionary.load(os.path.join(
       DATA_DIR, 'corpora', 'dictionary.less.all'))
   # Create a bow tagging for each publication:
