@@ -1,14 +1,34 @@
 # Informatics Collaboration Network & Topic Network
 Focusing on the School of Informatics, University of Edinburgh, a collaboration network was created using informtion from the University's collection of research publications [Edinburgh Research Explorer](http://www.research.ed.ac.uk/portal/en/organisations/school-of-informatics(d9a3581f-93a4-4d74-bf29-14c86a1da9f4).html "School of Informatics - Edinburgh Research Explorer"). More details in [infnet-scrapper](./infnet-scrapper/notebooks).
 
-Using the publications scrapped from the research explorer, [topic models](./topicModel/notebooks) were inferred, and a topic networks[1] were generated. A collaboration network was also [created, visualised and analysed](./infnet-analysis/notebooks).
+Using the publications scrapped from the research explorer, [topic models](./topicModel/notebooks) were inferred, and a topic-similarity networks[1] were generated. A collaboration network was also [created, visualised and analysed](./infnet-analysis/notebooks).
 
 ---
+## Directory
+1. Data
+    - bin
+        - scrapy : scripts for scraping using scrapy
+        - pdfminer: contains binary from [pdfminer.six](https://github.com/pdfminer/pdfminer.six)
+        - scripts used to process PDFs using pdfminer
+    -  data_dblp : dblp dataset, but metadata of publications are not stored due to the size of the dataset. We only store tokenised pickled files and dictionary in it.
+    - data_schoolofinf : Informatics dataset retrieved in Jan 2018
+    - notebooks : corresponds to steps taken to process and generate lookup tables for the remaining steps.
+
+2. infnet-analysis
+    - notebooks : contain the jupyter notebook used to generate each informatics network.
+        - community detection and homophily test is carried out in [analysis.ipynb](infnet-analysis/notebooks/analysis.ipynb)
+
+3. embedding
+    - notebooks : creation of topic-similarity networks
+
+4. topicModel
+    - notebooks : generate topic models using Gensim's implementation of LDA; also explore the performance of each model
+    - src : contain scripts to generate each topic model
 
 ## Setting up
 The project is still in development. To use the datasets and run the notebooks on your system, follow the following instruction:
 
-1. The project is developed in <s>python2.7</s> python3.6. Using anaconda to setup the virtual environment will be the easiest. You can get a copy of miniconda by issuing the following command:
+1. The project is developed in python3.6. Using anaconda to setup the virtual environment will be the easiest. You can get a copy of miniconda by issuing the following command:
 ```bash
 $ curl -O https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh # For MacOSX
 $ curl -O https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86.sh # For linux/ubuntu

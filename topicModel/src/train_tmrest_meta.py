@@ -17,9 +17,11 @@ if __name__ == '__main__':
   # Import the dataset:
   df_combined_toks = pd.read_pickle(
       os.path.join(DATA_DIR, 'toks', 'toks.combined.pkl'))
+  # Filter publications
   df_combined_toks = df_combined_toks.drop(
       df_combined_toks[(df_combined_toks.year < 2012)
                        | (df_combined_toks.year > 2017)].index)
+  # only use the metadata
   df_combined_toks['toks_metada'] = df_combined_toks.toks_metada.apply(
       lambda x: [] if not len(x) else x)
 

@@ -1,18 +1,17 @@
 #!/usr/bin/env python
+
 import logging
 import os
 logging.basicConfig(
     format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 import warnings
 warnings.filterwarnings('ignore')
-import pickle as pkl
 import pandas as pd
 from numpy.random import RandomState
 rng = RandomState(93748573)
 from gensim import models
 from gensim.corpora import Dictionary
 # Use coherence model to measure the LDA models generated
-from gensim.models.coherencemodel import CoherenceModel
 
 # FOR LDA PARAMETERS
 passes = 1  # total number of times the corpus is seen BECAUSE it will fault repeatedly! once should be good enough?
